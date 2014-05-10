@@ -1,0 +1,36 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="Chicken4WP.Views.Setting.Proxies.TwipProxySettingPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:appBar="clr-namespace:Caliburn.Micro.BindableAppBar;assembly=Caliburn.Micro.BindableAppBar"
+    xmlns:toolkits="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
+    shell:SystemTray.IsVisible="True">
+
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <StackPanel>
+            <TextBlock Text="Url:" />
+            <TextBox x:Name="Url" TextWrapping="Wrap"
+                     InputScope="Url"
+                     Height="320" MaxHeight="400" />
+        </StackPanel>
+
+        <appBar:BindableAppBar>
+            <appBar:BindableAppBarButton x:Name="AppBar_Finish"
+                                         Text="Finish" IconUri="/Images/dark/appbar.check.png" />
+        </appBar:BindableAppBar>
+    </Grid>
+
+    <toolkits:WaitCursorService.WaitCursor>
+        <toolkits:WaitCursor x:Name="WaitIndicator"/>
+    </toolkits:WaitCursorService.WaitCursor>
+
+</phone:PhoneApplicationPage>
