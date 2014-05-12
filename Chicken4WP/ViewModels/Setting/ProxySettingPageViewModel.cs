@@ -46,6 +46,17 @@ namespace Chicken4WP.ViewModels.Setting
             }
         }
 
+        protected override void OnActivate()
+        {
+            base.OnActivate();
+            if (Items == null)
+            {
+                var list = ChickenDataContext.Instance.Settings.Where(s => s.Type == SettingType.ProxySetting);
+                Items = new ObservableCollection<Entities.Setting>(list);
+                SelectedItem = list.SingleOrDefault(s => s.IsInUsed) ?? list.First();
+            }
+        }
+
         public void AppBar_Next()
         {
             switch (SelectedItem.Name)
@@ -63,15 +74,6 @@ namespace Chicken4WP.ViewModels.Setting
             }
         }
 
-        protected override void OnActivate()
-        {
-            base.OnActivate();
-            if (Items == null)
-            {
-                var list = ChickenDataContext.Instance.Settings.Where(s => s.Type == SettingType.ProxySetting);
-                Items = new ObservableCollection<Entities.Setting>(list);
-                SelectedItem = list.SingleOrDefault(s => s.IsInUsed) ?? list.First();
-            }
-        }
+
     }
 }

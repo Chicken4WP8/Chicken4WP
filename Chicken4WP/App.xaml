@@ -42,14 +42,16 @@
         </Style>
         
         <DataTemplate x:Key="TweetTemplate">
-            <Grid Margin="0,4">
+            <Grid Margin="0,4" Background="Red">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="68" />
                     <ColumnDefinition Width="*"  />
                 </Grid.ColumnDefinitions>
                 <!--avatar-->
-                <toolkits:ImageButton ImageSource="/Images/dark/appbar.check.png"
-                                      cal:Message.Attach="[Event Click] = [Action AvatarClick($source, $eventArgs)]" />
+                <!--<toolkits:ImageButton Grid.Column="0"
+                    ImageSource="/Images/dark/appbar.check.png" />-->
+                                      <!--cal:Message.Attach="[Event Click] = [Action AvatarClick($source, $eventArgs)]" />-->
+               
 
             </Grid>
         </DataTemplate>

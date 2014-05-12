@@ -72,36 +72,66 @@ namespace Chicken4WP
             Control.IsEnabledProperty, "DataContext", "Click");
             ConventionManager.AddElementConvention<BindableAppBarMenuItem>(
             Control.IsEnabledProperty, "DataContext", "Click");
-
+            //list picker
             ConventionManager.AddElementConvention<ListPicker>(
                 ItemsControl.ItemsSourceProperty, "SelectedItem", "SelectionChanged")
-                .ApplyBinding = (viewModelType, path, property, element, convention) =>
+                .ApplyBinding =
+                (viewModelType, path, property, element, convention) =>
                 {
                     if (ConventionManager.GetElementConvention(typeof(ItemsControl))
                         .ApplyBinding(viewModelType, path, property, element, convention))
                     {
-                        ConventionManager.ConfigureSelectedItem(element, ListPicker.SelectedItemProperty, viewModelType, path);
+                        ConventionManager
+                            .ConfigureSelectedItem(element, ListPicker.SelectedItemProperty, viewModelType, path);
                         return true;
                     }
                     return false;
                 };
-
+            #region pivot
             ConventionManager.AddElementConvention<Pivot>(Pivot.ItemsSourceProperty, "SelectedItem", "SelectionChanged")
-                .ApplyBinding =
-                (viewModelType, path, property, element, convention) =>
-                {
-                    if (ConventionManager
-                        .GetElementConvention(typeof(ItemsControl))
-                        .ApplyBinding(viewModelType, path, property, element, convention))
-                    {
-                        ConventionManager
-                            .ConfigureSelectedItem(element, Pivot.SelectedItemProperty, viewModelType, path);
-                        ConventionManager
-                            .ApplyHeaderTemplate(element, Pivot.HeaderTemplateProperty, null, viewModelType);
-                        return true;
-                    }
-                    return false;
-                };
+        .ApplyBinding =
+        (viewModelType, path, property, element, convention) =>
+        {
+            if (ConventionManager
+                .GetElementConvention(typeof(ItemsControl))
+                .ApplyBinding(viewModelType, path, property, element, convention))
+            {
+                ConventionManager
+                    .ConfigureSelectedItem(element, Pivot.SelectedItemProperty, viewModelType, path);
+                ConventionManager
+                    .ApplyHeaderTemplate(element, Pivot.HeaderTemplateProperty, null, viewModelType);
+                return true;
+            }
+            return false;
+        };
+            #endregion
+            //long list selector
+            //ConventionManager.AddElementConvention<LongListSelector>(LongListSelector.ItemsSourceProperty, "SelectedItem", "SelectionChanged")
+            //    .ApplyBinding =
+            //    (viewModelType, path, property, element, convention) =>
+            //    {
+            //        if (ConventionManager.GetElementConvention(typeof(LongListSelector))
+            //            .ApplyBinding(viewModelType, path, property, element, convention))
+            //        {
+            //            ConventionManager
+            //                .ConfigureSelectedItem(element, LongListSelector.SelectedItemProperty, viewModelType, path);
+            //            return true;
+            //        }
+            //        return false;
+            //    };
+
+            ConventionManager.AddElementConvention<LongListSelector>(LongListSelector.ItemsSourceProperty, "DataContext", "Loaded");
+
+            //ConventionManager.AddElementConvention<LongListSelector>(LongListSelector.ItemsSourceProperty, "SelectedItem", "SelectionChanged")
+            //    .ApplyBinding =
+            //   (viewModelType, path, property, element, convention) =>
+            //{
+            //    if (!ConventionManager.SetBindingWithoutBindingOrValueOverwrite(viewModelType, path, property, element, convention, LongListSelector.ItemsSourceProperty))
+            //        return false;
+            //    ConventionManager.ConfigureSelectedItem(element, LongListSelector.SelectedItemProperty, viewModelType, path);
+            //    //ConventionManager.ApplyItemTemplate((LongListSelector)element, property);
+            //    return true;
+            //};
         }
 
         protected override object GetInstance(Type service, string key)

@@ -12,9 +12,14 @@
     d:DesignHeight="480" d:DesignWidth="480">
 
     <Grid x:Name="LayoutRoot">
+        <toolkits:LongListSelector x:Name="Items"  IsFlatList="True">
+            <toolkits:LongListSelector.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Text}" FontSize="40" />
+                </DataTemplate>
+            </toolkits:LongListSelector.ItemTemplate>
 
-
-
+        </toolkits:LongListSelector>
 
         <appBar:BindableAppBar>
             <appBar:BindableAppBarButton x:Name="AppBar_Next"

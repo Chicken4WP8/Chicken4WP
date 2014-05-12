@@ -17,7 +17,7 @@
 
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <StackPanel>
-            <toolkits:ListPicker x:Name="Items" Header="Background" >
+            <toolkits:ListPicker x:Name="Items" Header="Background">
                 <toolkits:ListPicker.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}" />
