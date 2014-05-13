@@ -28,7 +28,7 @@ namespace Chicken4WP.Models
         { get { return Utils.ParseToSource(sourceText); } }
 
         [JsonIgnore]
-        public string SourceUri
+        public string SourceUrl
         { get { return Utils.ParseToSourceUrl(sourceText); } }
 
         [JsonProperty("in_reply_to_status_id_str")]
@@ -63,6 +63,49 @@ namespace Chicken4WP.Models
 
         [JsonProperty("retweeted_status")]
         public Retweet RetweetStatus { get; set; }
+
+        //for binding
+        [JsonIgnore]
+        public bool IncludeMedia
+        {
+            get
+            {
+                return Entities != null &&
+                    Entities.Medias != null &&
+                    Entities.Medias.Count != 0;
+            }
+        }
+
+        [JsonIgnore]
+        public bool IncludeCoordinates
+        {
+            get
+            {
+                return Coordinates != null;
+            }
+        }
+
+        private List<EntityBase> parsedentities;
+        [JsonIgnore]
+        public List<EntityBase> ParsedEntities
+        {
+            get
+            {
+                if (Entities == null) return null;
+                if (parsedentities != null) return parsedentities;
+
+                parsedentities = new List<EntityBase>();
+                if (Entities.UserMentions != null)
+                    parsedentities.AddRange(Utils.ParseUserMentions(Text, Entities.UserMentions));
+                if (Entities.HashTags != null)
+                    parsedentities.AddRange(Utils.ParseHashTags(Text, Entities.HashTags));
+                if (Entities.Urls != null)
+                    parsedentities.AddRange(Utils.ParseUrls(Text, Entities.Urls));
+                if (Entities.Medias != null)
+                    parsedentities.AddRange(Utils.ParseMedias(Text, Entities.Medias));
+                return parsedentities;
+            }
+        }
     }
 
     public class Retweet : Tweet

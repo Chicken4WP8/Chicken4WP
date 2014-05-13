@@ -25,6 +25,8 @@
     <SilverlightAppEntry>Chicken4WP.App</SilverlightAppEntry>
     <ValidateXaml>true</ValidateXaml>
     <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+    <Utf8Output>true</Utf8Output>
+    <ExpressionBlendVersion>4.0.30816.0</ExpressionBlendVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -125,6 +127,7 @@
     <Compile Include="Common\Const.cs" />
     <Compile Include="Common\StringToBooleanConverter.cs" />
     <Compile Include="Common\Utils.cs" />
+    <Compile Include="Controls\AutoRichTextBox.cs" />
     <Compile Include="Controls\BooleanToVisibilityConverter.cs" />
     <Compile Include="Controls\Popup.cs" />
     <Compile Include="Controls\ToastPrompt.cs" />
@@ -229,9 +232,81 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <BlendEmbeddedFont Include="Fonts\code2000____.ttf">
+      <All>True</All>
+      <AutoFill>True</AutoFill>
+      <Characters>
+      </Characters>
+      <Uppercase>True</Uppercase>
+      <Lowercase>True</Lowercase>
+      <Numbers>True</Numbers>
+      <Punctuation>True</Punctuation>
+    </BlendEmbeddedFont>
     <None Include="packages.config" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml" />
+    <Content Include="Images\dark\appbar.bottom.png" />
+    <Content Include="Images\dark\appbar.camera.png" />
+    <Content Include="Images\dark\appbar.cancel.png" />
+    <Content Include="Images\dark\appbar.delete.png" />
+    <Content Include="Images\dark\appbar.edit.png" />
+    <Content Include="Images\dark\appbar.emotion.png" />
+    <Content Include="Images\dark\appbar.favorite.png" />
+    <Content Include="Images\dark\appbar.keyboard.png" />
+    <Content Include="Images\dark\appbar.mention.png" />
+    <Content Include="Images\dark\appbar.message.png" />
+    <Content Include="Images\dark\appbar.quote.png" />
+    <Content Include="Images\dark\appbar.refresh.png" />
+    <Content Include="Images\dark\appbar.reply.png" />
+    <Content Include="Images\dark\appbar.retweet.png" />
+    <Content Include="Images\dark\appbar.send.png" />
+    <Content Include="Images\dark\appbar.top.png" />
+    <Content Include="Images\dark\appbar.tweet.new.png" />
+    <Content Include="Images\dark\calendar.png" />
+    <Content Include="Images\dark\cat.png" />
+    <Content Include="Images\dark\conversation.png" />
+    <Content Include="Images\dark\delete.png" />
+    <Content Include="Images\dark\favorite.png" />
+    <Content Include="Images\dark\followedby.png" />
+    <Content Include="Images\dark\following.png" />
+    <Content Include="Images\dark\global.png" />
+    <Content Include="Images\dark\hashtag.png" />
+    <Content Include="Images\dark\link.png" />
+    <Content Include="Images\dark\location.png" />
+    <Content Include="Images\dark\media.png" />
+    <Content Include="Images\dark\people.png" />
+    <Content Include="Images\dark\private.png" />
+    <Content Include="Images\dark\retweet.png" />
+    <Content Include="Images\dark\search.png" />
+    <Content Include="Images\dark\verified.png" />
+    <Content Include="Images\light\appbar.at.png" />
+    <Content Include="Images\light\appbar.buttom.png" />
+    <Content Include="Images\light\appbar.camera.png" />
+    <Content Include="Images\light\appbar.delete.png" />
+    <Content Include="Images\light\appbar.edit.png" />
+    <Content Include="Images\light\appbar.favorite.png" />
+    <Content Include="Images\light\appbar.keyboard.png" />
+    <Content Include="Images\light\appbar.messge.png" />
+    <Content Include="Images\light\appbar.quote.png" />
+    <Content Include="Images\light\appbar.refresh.png" />
+    <Content Include="Images\light\appbar.reply.png" />
+    <Content Include="Images\light\appbar.retweet.png" />
+    <Content Include="Images\light\appbar.send.png" />
+    <Content Include="Images\light\appbar.top.png" />
+    <Content Include="Images\light\appbar.tweet.new.png" />
+    <Content Include="Images\light\conversation.png" />
+    <Content Include="Images\light\delete.png" />
+    <Content Include="Images\light\favorite.png" />
+    <Content Include="Images\light\following.png" />
+    <Content Include="Images\light\global.png" />
+    <Content Include="Images\light\hashtag.png" />
+    <Content Include="Images\light\link.png" />
+    <Content Include="Images\light\location.png" />
+    <Content Include="Images\light\media.png" />
+    <Content Include="Images\light\people.png" />
+    <Content Include="Images\light\private.png" />
+    <Content Include="Images\light\retweet.png" />
+    <Content Include="Images\light\verified.png" />
     <Content Include="SampleData\hometimeline.json" />
     <Content Include="SampleData\myprofile.json" />
   </ItemGroup>
@@ -268,4 +343,5 @@
     <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
     <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
   </Target>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Expression\Blend\WindowsPhone\v7.1\Microsoft.Expression.Blend.WindowsPhone.targets" />
 </Project>

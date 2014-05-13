@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Chicken4WP.Models;
 
 namespace Chicken4WP.Common
 {
@@ -54,6 +56,97 @@ namespace Chicken4WP.Common
                 return Const.DEFAULTSOURCEURL;
             }
             return result;
+        }
+        #endregion
+
+        #region parse tweet entites
+        public static IEnumerable<EntityBase> ParseUserMentions(string text, List<UserMention> mentions)
+        {
+            foreach (var mention in mentions.Distinct(m => m.ScreenName))
+            {
+                var matches = Regex.Matches(text, string.Format(USERNAMEPATTERN, Regex.Escape(mention.DisplayText)), RegexOptions.IgnoreCase);
+                foreach (Match match in matches)
+                {
+                    var entity = new UserMention
+                    {
+                        Index = match.Index,
+                        Id = mention.Id,
+                        ScreenName = mention.ScreenName
+                    };
+                    yield return entity;
+                }
+            }
+        }
+
+        public static IEnumerable<EntityBase> ParseHashTags(string text, List<HashTag> hashtags)
+        {
+            foreach (var hashtag in hashtags.Distinct(h => h.Text))
+            {
+                var matches = Regex.Matches(text, string.Format(HASHTAGPATTERN, Regex.Escape(hashtag.Text)));
+                foreach (Match match in matches)
+                {
+                    var entity = new HashTag
+                    {
+                        Index = match.Index,
+                        Text = hashtag.Text,
+                    };
+                    yield return entity;
+                }
+            }
+        }
+
+        public static IEnumerable<EntityBase> ParseUrls(string text, List<UrlEntity> urls)
+        {
+            foreach (var url in urls.Distinct(u => u.Url))
+            {
+                var matches = Regex.Matches(text, string.Format(URLPATTERN, Regex.Escape(url.Url)));
+                foreach (Match match in matches)
+                {
+                    var entity = new UrlEntity
+                    {
+                        Index = match.Index,
+                        Url = url.Url,
+                        DisplayUrl = url.DisplayUrl,
+                        ExpandedUrl = url.ExpandedUrl,
+                    };
+                    yield return entity;
+                }
+            }
+        }
+
+        public static IEnumerable<EntityBase> ParseMedias(string text, List<MediaEntity> medias)
+        {
+            foreach (var media in medias)
+            {
+                var matches = Regex.Matches(text, string.Format(URLPATTERN, Regex.Escape(media.Url)));
+                foreach (Match match in matches)
+                {
+                    var entity = new MediaEntity
+                    {
+                        Index = match.Index,
+                        Url = media.Url,
+                        DisplayUrl = media.DisplayUrl,
+                        MediaUrl = media.MediaUrl,
+                    };
+                    yield return entity;
+                }
+            }
+        }
+        #endregion
+
+        #region Extension
+        public static IEnumerable<TSource> Distinct<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
+        {
+            Dictionary<TKey, object> keys = new Dictionary<TKey, object>();
+            foreach (TSource element in source)
+            {
+                var elementValue = keySelector(element);
+                if (!keys.ContainsKey(elementValue))
+                {
+                    keys.Add(elementValue, null);
+                    yield return element;
+                }
+            }
         }
         #endregion
     }

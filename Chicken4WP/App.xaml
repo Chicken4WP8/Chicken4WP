@@ -10,11 +10,30 @@
     xmlns:ctrls="clr-namespace:Chicken4WP.Controls">
 
     <Application.Resources>
+        <!--default font is Segoe WP/UI-->
+        <!--DengXian/YaHei/MHei is for Chinese-->
+        <!--Yu Gothic/NeoGothic is for Japanese/Korean-->
+        <!--Nirmala UI is for Hindi/Thai only on WP8-->
+        <!--Code2000 for special characters-->
+        <!--find the default font list here:-->
+        <!--http://msdn.microsoft.com/zh-cn/library/windowsphone/develop/hh202920(v=vs.105).aspx-->
+        <FontFamily x:Key="FontFamily">
+            Segoe WP,Segoe UI,
+            Microsoft YaHei,DengXian,Microsoft Mhei,
+            Yu Gothic,Microsoft NeoGothic,
+            Nirmala UI,Leelawadee,
+            /Chicken;component/Fonts/Fonts.zip#Code2000
+        </FontFamily>
+
         <local:AppBootstrapper x:Name="bootstrapper" />
 
         <local:LanguageHelper x:Name="LanguageHelper" />
 
         <ctrls:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <ctrls:InvertBooleanToVisibilityConverter x:Key="InvertBooleanToVisibilityConverter" />
+        <ctrls:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
+        <ctrls:ObjectToVisibilityConverter x:Key="ObjectToVisibilityConverter" />
+        <ctrls:BooleanToFillConverter x:Key="BooleanToFillConverter" />
 
         <Style TargetType="ctrls:ToastPrompt">
             <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeSmall}" />
@@ -40,18 +59,160 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
+        <!--media and retweet icon-->
+        <Style x:Name="RetweetRectangleSmall" TargetType="Rectangle">
+            <Setter Property="Stretch" Value="Fill" />
+            <Setter Property="Width" Value="16" />
+            <Setter Property="Height" Value="16" />
+            <Setter Property="Margin" Value="2" />
+        </Style>
+
+        <!--profile image-->
+        <Style x:Name="ProfileImage" TargetType="toolkits:ImageButton">
+            <Setter Property="Margin" Value="4" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+        </Style>
+        <!--profile image small, for tweet avatar-->
+        <Style x:Name="ProfileImageSmall" TargetType="toolkits:ImageButton" BasedOn="{StaticResource ProfileImage}">
+            <Setter Property="Margin" Value="0,2,4,0" />
+            <Setter Property="Width" Value="64" />
+            <Setter Property="Height"  Value="64" />
+        </Style>
+
+        <!--text small-->
+        <Style x:Name="TextSmall" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource FontFamily}" />
+            <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeSmall}" />
+            <Setter Property="TextTrimming" Value="WordEllipsis" />
+            <Setter Property="Foreground" Value="Silver" />
+        </Style>
+
+        <!--tweet screen name-->
+        <Style x:Name="TweetScreenName" TargetType="TextBlock" BasedOn="{StaticResource TextSmall}">
+            <Setter Property="FontFamily" Value="{StaticResource FontFamily}" />
+            <Setter Property="Opacity" Value="0.6" />
+        </Style>
+
+        <!--HyperLink Text small-->
+        <Style x:Name="HyperLinkTextSmall" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource FontFamily}" />
+            <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeSmall}" />
+            <Setter Property="Foreground" Value="Gray" />
+            <Setter Property="TextAlignment" Value="Right" />
+            <Setter Property="TextTrimming" Value="WordEllipsis" />
+        </Style>
+        <!--hyper link button small-->
+        <Style x:Name="HyperLinkButtonSmall" TargetType="HyperlinkButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="HyperlinkButton">
+                        <ContentPresenter Content="{TemplateBinding Content}">
+                            <ContentPresenter.ContentTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding}" Style="{StaticResource HyperLinkTextSmall}" />
+                                </DataTemplate>
+                            </ContentPresenter.ContentTemplate>
+                        </ContentPresenter>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
         <DataTemplate x:Key="TweetTemplate">
-            <Grid Margin="0,4" Background="Red">
+            <Grid Margin="0,4">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="68" />
                     <ColumnDefinition Width="*"  />
                 </Grid.ColumnDefinitions>
                 <!--avatar-->
-                <!--<toolkits:ImageButton Grid.Column="0"
-                    ImageSource="/Images/dark/appbar.check.png" />-->
-                                      <!--cal:Message.Attach="[Event Click] = [Action AvatarClick($source, $eventArgs)]" />-->
-               
+                <toolkits:ImageButton Grid.Column="0"
+                                      Style="{StaticResource ProfileImageSmall}"
+                                      ImageSource="{Binding Path=User.ProfileImageUrl}" />
+                <!--cal:Message.Attach="[Event Click] = [Action AvatarClick($source, $eventArgs)]" />-->
+                <!--content-->
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Button Grid.Row="0" >
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Grid.Resources>
+                                        <Style TargetType="TextBlock" BasedOn="{StaticResource TextSmall}" />
+                                    </Grid.Resources>
+                                    <!--user name-->
+                                    <TextBlock Text="{Binding User.Name}" Grid.Row="0" />
+                                    <!--screen name-->
+                                    <TextBlock Text="{Binding User.ScreenName}" Grid.Row="1"
+                                               Style="{StaticResource TweetScreenName}" />
+                                    <!--text-->
+                                    <ctrls:AutoRichTextBox Grid.Row="2"
+                                                           Entities ="{Binding Path=ParsedEntities}" Text="{Binding Path=Text}"
+                                                           HorizontalAlignment="Stretch" TextAlignment="Left" />
+                                    <Grid Grid.Row="3" Opacity="0.6" HorizontalAlignment="Stretch">
+                                        <Grid.Resources>
+                                            <Style TargetType="TextBlock" BasedOn="{StaticResource TextSmall}">
+                                                <Setter Property="HorizontalAlignment" Value="Left" />
+                                                <Setter Property="TextAlignment" Value="Left" />
+                                            </Style>
+                                        </Grid.Resources>
+                                        <!--date-->
+                                        <TextBlock Grid.Row="0" Text="{Binding CreatedDate}" />
+                                        <!--media retweet count etc-->
+                                        <StackPanel Grid.Row="0"
+                                                    HorizontalAlignment="Right" Orientation="Horizontal">
+                                            <StackPanel.Resources>
+                                                <Style TargetType="Rectangle" BasedOn="{StaticResource RetweetRectangleSmall}">
+                                                    <Setter Property="Fill" Value="{StaticResource PhoneForegroundBrush}" />
+                                                </Style>
+                                            </StackPanel.Resources>
+                                            <!--conversation-->
+                                            <Rectangle Visibility="{Binding InReplyToTweetId,Converter={StaticResource StringToVisibilityConverter}}">
+                                                <Rectangle.OpacityMask>
+                                                    <ImageBrush ImageSource="/Images/dark/conversation.png" />
+                                                </Rectangle.OpacityMask>
+                                            </Rectangle>
+                                            <!--media-->
+                                            <Rectangle Visibility="{Binding IncludeMedia,Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                <Rectangle.OpacityMask>
+                                                    <ImageBrush ImageSource="/Images/dark/media.png" />
+                                                </Rectangle.OpacityMask>
+                                            </Rectangle>
+                                            <!--location-->
+                                            <Rectangle Visibility="{Binding IncludeCoordinates,Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                <Rectangle.OpacityMask>
+                                                    <ImageBrush ImageSource="/Images/dark/location.png" />
+                                                </Rectangle.OpacityMask>
+                                            </Rectangle>
+                                            <!--retweet-->
+                                            <Rectangle Visibility="{Binding RetweetCount,Converter={StaticResource StringToVisibilityConverter}}">
+                                                <Rectangle.OpacityMask>
+                                                    <ImageBrush ImageSource="/Images/dark/retweet.png" />
+                                                </Rectangle.OpacityMask>
+                                            </Rectangle>
+                                        </StackPanel>
+                                    </Grid>
+                                </Grid>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <!--via-->
+                    <HyperlinkButton Grid.Row="1" Content="{Binding Path=Source}"
+                                     NavigateUri="{Binding Path=SourceUrl}" TargetName="_blank"
+                                     Style="{StaticResource HyperLinkButtonSmall}" HorizontalAlignment="Right" />
+                </Grid>
+                <!--content end-->
 
             </Grid>
         </DataTemplate>

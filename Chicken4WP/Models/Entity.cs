@@ -8,6 +8,8 @@ namespace Chicken4WP.Models
         public abstract EntityType EntityType { get; }
 
         public int Index { get; set; }
+
+        public virtual string DisplayText { get; private set; }
     }
 
     public enum EntityType
@@ -45,10 +47,19 @@ namespace Chicken4WP.Models
         }
 
         [JsonProperty("id")]
-        public long Id { get; set; }
+        public string Id { get; set; }
 
         [JsonProperty("screen_name")]
         public string ScreenName { get; set; }
+
+        [JsonIgnore]
+        public override string DisplayText
+        {
+            get
+            {
+                return "@" + ScreenName;
+            }
+        }
     }
 
     public class HashTag : EntityBase
@@ -63,6 +74,15 @@ namespace Chicken4WP.Models
 
         [JsonProperty("text")]
         public string Text { get; set; }
+
+        [JsonIgnore]
+        public override string DisplayText
+        {
+            get
+            {
+                return "#" + Text;
+            }
+        }
     }
 
     public class UrlEntity : EntityBase
@@ -77,6 +97,9 @@ namespace Chicken4WP.Models
 
         [JsonProperty("url")]
         public string Url { get; set; }
+        [JsonIgnore]
+        public override string DisplayText
+        { get { return Url; } }
 
         [JsonProperty("display_url")]
         public string DisplayUrl { get; set; }
