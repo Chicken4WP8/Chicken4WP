@@ -35,6 +35,8 @@
         <ctrls:ObjectToVisibilityConverter x:Key="ObjectToVisibilityConverter" />
         <ctrls:BooleanToFillConverter x:Key="BooleanToFillConverter" />
 
+        <ctrls:StringToImageSourceConverter x:Key="StringToImageSourceConverter" />
+
         <Style TargetType="ctrls:ToastPrompt">
             <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeSmall}" />
             <Setter Property="TextWrapping" Value="Wrap" />
@@ -76,9 +78,8 @@
         </Style>
         <!--profile image small, for tweet avatar-->
         <Style x:Name="ProfileImageSmall" TargetType="toolkits:ImageButton" BasedOn="{StaticResource ProfileImage}">
-            <Setter Property="Margin" Value="0,2,4,0" />
-            <Setter Property="Width" Value="64" />
-            <Setter Property="Height"  Value="64" />
+            <Setter Property="Width" Value="68" />
+            <Setter Property="Height"  Value="68" />
         </Style>
 
         <!--text small-->
@@ -130,7 +131,7 @@
                 <!--avatar-->
                 <toolkits:ImageButton Grid.Column="0"
                                       Style="{StaticResource ProfileImageSmall}"
-                                      ImageSource="{Binding Path=User.ProfileImageUrl}" />
+                                      ImageSource="{Binding Path=User.ProfileImageUrl,Converter={StaticResource StringToImageSourceConverter}}" />
                 <!--cal:Message.Attach="[Event Click] = [Action AvatarClick($source, $eventArgs)]" />-->
                 <!--content-->
                 <Grid Grid.Column="1">

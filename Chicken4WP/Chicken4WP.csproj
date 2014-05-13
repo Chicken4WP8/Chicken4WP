@@ -130,6 +130,7 @@
     <Compile Include="Controls\AutoRichTextBox.cs" />
     <Compile Include="Controls\BooleanToVisibilityConverter.cs" />
     <Compile Include="Controls\Popup.cs" />
+    <Compile Include="Controls\StringToImageSourceConverter.cs" />
     <Compile Include="Controls\ToastPrompt.cs" />
     <Compile Include="Entities\Account.cs" />
     <Compile Include="Entities\ChickenDataContext.cs" />
@@ -148,6 +149,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\ImageCacheService.cs" />
     <Compile Include="Services\Implemention\MockedTweetService.cs" />
     <Compile Include="Services\Implemention\TweetServiceBase.cs" />
     <Compile Include="Services\Implemention\TwipTweetService.cs" />
