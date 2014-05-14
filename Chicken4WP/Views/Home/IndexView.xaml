@@ -9,17 +9,12 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    d:DesignHeight="480" d:DesignWidth="480">
+    d:DesignHeight="480" d:DesignWidth="480"
+    x:Name="Page">
 
     <Grid x:Name="LayoutRoot">
         <toolkits:LongListSelector x:Name="Items"  IsFlatList="True"
                                    ItemTemplate="{StaticResource TweetTemplate}">
-            <!--<toolkits:LongListSelector.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Text}" FontSize="40" />
-                </DataTemplate>
-            </toolkits:LongListSelector.ItemTemplate>-->
-
         </toolkits:LongListSelector>
 
         <appBar:BindableAppBar>

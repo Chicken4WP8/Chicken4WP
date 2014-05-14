@@ -19,7 +19,7 @@ namespace Chicken4WP.Services
     {
         private static Dictionary<string, BitmapImage> cachedImages = new Dictionary<string, BitmapImage>();
 
-        public static BitmapImage GetImageFromUrl(string url)
+        public BitmapImage GetImageFromUrl(string url)
         {
             if (cachedImages.ContainsKey(url))
             {

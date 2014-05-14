@@ -35,7 +35,7 @@
         <ctrls:ObjectToVisibilityConverter x:Key="ObjectToVisibilityConverter" />
         <ctrls:BooleanToFillConverter x:Key="BooleanToFillConverter" />
 
-        <ctrls:StringToImageSourceConverter x:Key="StringToImageSourceConverter" />
+        <!--<ctrls:StringToImageSourceConverter x:Key="StringToImageSourceConverter" />-->
 
         <Style TargetType="ctrls:ToastPrompt">
             <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeSmall}" />
@@ -71,15 +71,16 @@
         </Style>
 
         <!--profile image-->
-        <Style x:Name="ProfileImage" TargetType="toolkits:ImageButton">
+        <Style x:Name="ProfileImage" TargetType="Image">
             <Setter Property="Margin" Value="4" />
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Top" />
         </Style>
         <!--profile image small, for tweet avatar-->
-        <Style x:Name="ProfileImageSmall" TargetType="toolkits:ImageButton" BasedOn="{StaticResource ProfileImage}">
-            <Setter Property="Width" Value="68" />
-            <Setter Property="Height"  Value="68" />
+        <Style x:Name="ProfileImageSmall" TargetType="Image" BasedOn="{StaticResource ProfileImage}">
+            <Setter Property="Margin" Value="0,2,4,0" />
+            <Setter Property="Width" Value="64" />
+            <Setter Property="Height"  Value="64" />
         </Style>
 
         <!--text small-->
@@ -129,10 +130,17 @@
                     <ColumnDefinition Width="*"  />
                 </Grid.ColumnDefinitions>
                 <!--avatar-->
-                <toolkits:ImageButton Grid.Column="0"
-                                      Style="{StaticResource ProfileImageSmall}"
-                                      ImageSource="{Binding Path=User.ProfileImageUrl,Converter={StaticResource StringToImageSourceConverter}}" />
-                <!--cal:Message.Attach="[Event Click] = [Action AvatarClick($source, $eventArgs)]" />-->
+                <Button Grid.Column="0"
+                        cal:Action.TargetWithoutContext="{Binding ElementName=Items,Path=DataContext}"
+                        cal:Message.Attach="[Event Click] = [Action AvatarClick($datacontext, $eventArgs)]">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Grid cal:Message.Attach="[Event Loaded] = [Action GridLoaded($source, $eventArgs)]">
+                                <Image Style="{StaticResource ProfileImageSmall}" />
+                            </Grid>                            
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
                 <!--content-->
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>

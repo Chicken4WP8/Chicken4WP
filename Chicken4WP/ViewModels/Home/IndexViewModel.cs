@@ -7,6 +7,9 @@ using Chicken4WP.Models;
 using Chicken4WP.Services;
 using Chicken4WP.Services.Interface;
 using System.Linq;
+using System.Windows.Controls;
+using System.Windows.Media.Imaging;
+using System;
 
 namespace Chicken4WP.ViewModels.Home
 {
@@ -15,6 +18,8 @@ namespace Chicken4WP.ViewModels.Home
         private readonly IEventAggregator eventAggregator;
         private readonly ToastMessageService toastMessageService;
         private readonly ITweetService tweetService;
+
+        private static BitmapImage defaultImage = new BitmapImage(new Uri("/Images/dark/cat.png", UriKind.Relative));
 
         public IndexViewModel(ToastMessageService toastMessageService, IEventAggregator eventAggregator)
         {
@@ -74,6 +79,18 @@ namespace Chicken4WP.ViewModels.Home
         {
             var language = Application.Current.Resources["LanguageHelper"] as LanguageHelper;
             language.SetLanguage(new CultureInfo("en-US"));
+        }
+
+        public void GridLoaded(object sender, RoutedEventArgs e)
+        {
+            var grid = sender as Grid;
+            var image = grid.Children[0] as Image;
+            image.Source = defaultImage;
+        }
+
+        public void AvatarClick(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
         }
 
         public void Handle(CultureInfo message)
