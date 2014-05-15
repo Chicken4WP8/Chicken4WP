@@ -18,14 +18,16 @@ namespace Chicken4WP.ViewModels.Home
         private readonly IEventAggregator eventAggregator;
         private readonly ToastMessageService toastMessageService;
         private readonly ITweetService tweetService;
+        private readonly ImageCacheService imageCacheService;
 
         private static BitmapImage defaultImage = new BitmapImage(new Uri("/Images/dark/cat.png", UriKind.Relative));
 
-        public IndexViewModel(ToastMessageService toastMessageService, IEventAggregator eventAggregator)
+        public IndexViewModel(ToastMessageService toastMessageService, IEventAggregator eventAggregator, ImageCacheService imageCacheService)
         {
             this.toastMessageService = toastMessageService;
             this.eventAggregator = eventAggregator;
             eventAggregator.Subscribe(this);
+            this.imageCacheService = imageCacheService;
             this.tweetService = AppBootstrapper.Container.GetInstance(typeof(ITweetService), Const.TWIPTWEETSERVICE) as ITweetService;
 
             SetLanguage();
@@ -79,13 +81,6 @@ namespace Chicken4WP.ViewModels.Home
         {
             var language = Application.Current.Resources["LanguageHelper"] as LanguageHelper;
             language.SetLanguage(new CultureInfo("en-US"));
-        }
-
-        public void GridLoaded(object sender, RoutedEventArgs e)
-        {
-            var grid = sender as Grid;
-            var image = grid.Children[0] as Image;
-            image.Source = defaultImage;
         }
 
         public void AvatarClick(object sender, RoutedEventArgs e)

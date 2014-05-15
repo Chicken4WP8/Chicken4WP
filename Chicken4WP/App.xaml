@@ -35,7 +35,17 @@
         <ctrls:ObjectToVisibilityConverter x:Key="ObjectToVisibilityConverter" />
         <ctrls:BooleanToFillConverter x:Key="BooleanToFillConverter" />
 
-        <!--<ctrls:StringToImageSourceConverter x:Key="StringToImageSourceConverter" />-->
+        <Style TargetType="ctrls:ThemedImage">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ctrls:ThemedImage">
+                        <Grid>
+                            <Image x:Name="ImageBrush" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
         <Style TargetType="ctrls:ToastPrompt">
             <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeSmall}" />
@@ -71,13 +81,13 @@
         </Style>
 
         <!--profile image-->
-        <Style x:Name="ProfileImage" TargetType="Image">
+        <Style x:Name="ProfileImage" TargetType="Button">
             <Setter Property="Margin" Value="4" />
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Top" />
         </Style>
         <!--profile image small, for tweet avatar-->
-        <Style x:Name="ProfileImageSmall" TargetType="Image" BasedOn="{StaticResource ProfileImage}">
+        <Style x:Name="ProfileImageSmall" TargetType="Button" BasedOn="{StaticResource ProfileImage}">
             <Setter Property="Margin" Value="0,2,4,0" />
             <Setter Property="Width" Value="64" />
             <Setter Property="Height"  Value="64" />
@@ -130,14 +140,14 @@
                     <ColumnDefinition Width="*"  />
                 </Grid.ColumnDefinitions>
                 <!--avatar-->
-                <Button Grid.Column="0"
+                <Button Grid.Column="0" Style="{StaticResource ProfileImageSmall}"
                         cal:Action.TargetWithoutContext="{Binding ElementName=Items,Path=DataContext}"
                         cal:Message.Attach="[Event Click] = [Action AvatarClick($datacontext, $eventArgs)]">
                     <Button.Template>
                         <ControlTemplate>
-                            <Grid cal:Message.Attach="[Event Loaded] = [Action GridLoaded($source, $eventArgs)]">
-                                <Image Style="{StaticResource ProfileImageSmall}" />
-                            </Grid>                            
+                            <Grid>
+                                <ctrls:ThemedImage ImageUrl="{Binding Path=User.ProfileImageUrl}" Source="/Images/dark/cat.png" />
+                            </Grid>
                         </ControlTemplate>
                     </Button.Template>
                 </Button>

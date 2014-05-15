@@ -62,7 +62,7 @@ namespace Chicken4WP.Models
         [JsonProperty("profile_banner_url")]
         public string UserProfileBannerUrl { get; set; }
 
-        [JsonProperty("profile_image_url_https")]
+        [JsonProperty("profile_image_url")]
         public string ProfileImageUrl { get; set; }
 
         [JsonProperty("following")]

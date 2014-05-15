@@ -40,6 +40,7 @@ namespace Chicken4WP
             container.Instance<ProgressService>(new ProgressService(RootFrame));
             container.Singleton<StorageService>();
             container.PerRequest<ToastMessageService>();
+            container.PerRequest<ImageCacheService>();
 #if LOCAL
             container.RegisterPerRequest(typeof(ITweetService), Const.TWIPTWEETSERVICE, typeof(MockedTweetService));
 #else

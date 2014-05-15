@@ -1,48 +1,93 @@
 ﻿using System;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
-using System.Windows.Media.Imaging;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.ComponentModel;
 using System.IO;
+using System.Net;
+using System.Threading;
 
 namespace Chicken4WP.Services
 {
     public class ImageCacheService
     {
-        private static Dictionary<string, BitmapImage> cachedImages = new Dictionary<string, BitmapImage>();
+        private static readonly object locker = new object();
+        private const int MAX_CACHE_ITEM = 500;
+        private static Dictionary<string, byte[]> imageCacheDic = new Dictionary<string, byte[]>(MAX_CACHE_ITEM);
+        private static Random random = new Random();
 
-        public BitmapImage GetImageFromUrl(string url)
+        public static void SetImageStream(string imageUrl, Action<byte[]> callBack)
         {
-            if (cachedImages.ContainsKey(url))
+            #region if cached
+            if (imageCacheDic.ContainsKey(imageUrl)
+                && imageCacheDic[imageUrl] != null)
             {
-                return cachedImages[url];
+                callBack(imageCacheDic[imageUrl]);
+                return;
             }
-            var request = WebRequest.CreateHttp(url + "?random=" + DateTime.Now.Ticks.ToString("x"));
-            var task = Task.Factory.FromAsync(
-                request.BeginGetResponse,
-                asyncResult => request.EndGetResponse(asyncResult),
-                null);
-            return task.ContinueWith(t => DownloadImage(t.Result, url)).Result;
+            #endregion
+            #region add to pending work list
+            var pendingwork = new PendingWork
+            {
+                ImageUrl = imageUrl,
+                CallBack = callBack
+            };
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.DoWork += DownloadImage;
+            worker.RunWorkerAsync(pendingwork);
+            #endregion
         }
 
-        private static BitmapImage DownloadImage(WebResponse response, string url)
+        private static void DownloadImage(object sender, DoWorkEventArgs e)
         {
-            using (Stream stream = response.GetResponseStream())
+            Thread.Sleep(random.Next(MAX_CACHE_ITEM));
+            if (e.Cancel)
+                return;
+            var pendingwork = e.Argument as PendingWork;
+            pendingwork.Request = WebRequest.CreateHttp(pendingwork.ImageUrl + "?random=" + DateTime.Now.Ticks.ToString("x"));
+            pendingwork.Request.BeginGetResponse(DownloadImage, pendingwork);
+        }
+
+        private static void DownloadImage(IAsyncResult result)
+        {
+            var pendingwork = (PendingWork)result.AsyncState;
+            try
             {
-                var image = new BitmapImage();
-                image.SetSource(stream);
-                cachedImages.Add(url, image);
+                var response = pendingwork.Request.EndGetResponse(result);
+                using (Stream stream = response.GetResponseStream())
+                {
+                    var memoryStream = new MemoryStream();
+                    stream.CopyTo(memoryStream);
+                    var data = memoryStream.ToArray();
+                    AddImageCache(pendingwork.ImageUrl, data);
+                }
+                response.Close();
+                pendingwork.CallBack(imageCacheDic[pendingwork.ImageUrl]);
             }
-            response.Close();
-            return cachedImages[url];
+            catch (Exception e)
+            {
+            }
+        }
+
+        private static void DownloadImageComplete(object sender, RunWorkerCompletedEventArgs e)
+        {
+            (sender as BackgroundWorker).DoWork -= DownloadImage;
+        }
+
+        private static void AddImageCache(string imageUrl, byte[] data)
+        {
+            lock (locker)
+            {
+                imageCacheDic[imageUrl] = data;
+            }
+        }
+
+
+        private class PendingWork
+        {
+            public HttpWebRequest Request { get; set; }
+
+            public string ImageUrl { get; set; }
+
+            public Action<byte[]> CallBack { get; set; }
         }
     }
 }
