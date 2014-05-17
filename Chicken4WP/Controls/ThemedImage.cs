@@ -1,9 +1,10 @@
-﻿using System.Windows;
+﻿using System.IO;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using Chicken4WP.Services;
-using System.IO;
 using System.Windows.Media.Imaging;
+using Chicken4WP.Services;
+using ImageTools;
 
 namespace Chicken4WP.Controls
 {
@@ -66,11 +67,11 @@ namespace Chicken4WP.Controls
                     #region others
                     catch
                     {
-                        //var memStream = new MemoryStream(data);
-                        //memStream.Position = 0;
-                        //var gifImage = new ExtendedImage();
-                        //gifImage.SetSource(memStream);
-                        //gifImage.LoadingCompleted += ExtendedImageLoadCompleted;
+                        var memStream = new MemoryStream(data);
+                        memStream.Position = 0;
+                        var gifImage = new ExtendedImage();
+                        gifImage.SetSource(memStream);
+                        this.Source = gifImage.ToBitmap();
                     }
                     #endregion
                 });

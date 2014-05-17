@@ -77,6 +77,14 @@
     <Reference Include="Caliburn.Micro.Extensions">
       <HintPath>..\packages\Caliburn.Micro.1.5.2\lib\wp71\Caliburn.Micro.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZLib.Phone, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="ImageTools, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="ImageTools.Controls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="ImageTools.Filtering, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="ImageTools.IO.Bmp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="ImageTools.IO.Gif, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="ImageTools.IO.Png, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="ImageTools.Utils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Phone.Controls, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Phone.Controls.Toolkit">
@@ -95,6 +103,9 @@
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\portable-net40+sl4+wp7+win8\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PhoneCodeContractsAssemblies">
+      <HintPath>Libs\PhoneCodeContractsAssemblies.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp.WindowsPhone">
       <HintPath>..\packages\RestSharp.104.4.0\lib\sl4-wp71\RestSharp.WindowsPhone.dll</HintPath>
@@ -309,6 +320,15 @@
     <Content Include="Images\light\private.png" />
     <Content Include="Images\light\retweet.png" />
     <Content Include="Images\light\verified.png" />
+    <Content Include="Libs\ICSharpCode.SharpZLib.Phone.dll" />
+    <Content Include="Libs\ImageTools.Controls.dll" />
+    <Content Include="Libs\ImageTools.dll" />
+    <Content Include="Libs\ImageTools.Filtering.dll" />
+    <Content Include="Libs\ImageTools.IO.Bmp.dll" />
+    <Content Include="Libs\ImageTools.IO.Gif.dll" />
+    <Content Include="Libs\ImageTools.IO.Png.dll" />
+    <Content Include="Libs\ImageTools.Utils.dll" />
+    <Content Include="Libs\PhoneCodeContractsAssemblies.dll" />
     <Content Include="SampleData\hometimeline.json" />
     <Content Include="SampleData\myprofile.json" />
   </ItemGroup>
