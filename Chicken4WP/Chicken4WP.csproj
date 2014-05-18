@@ -167,7 +167,6 @@
     <Compile Include="Services\Interface\ITweetService.cs" />
     <Compile Include="Services\Interface\Option.cs" />
     <Compile Include="Services\ProgressService.cs" />
-    <Compile Include="Services\StorageService.cs" />
     <Compile Include="Services\ToastMessageService.cs" />
     <Compile Include="ViewModels\Home\DMViewModel.cs" />
     <Compile Include="ViewModels\Home\HomePageViewModel.cs" />

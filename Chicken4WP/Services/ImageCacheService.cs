@@ -23,7 +23,7 @@ namespace Chicken4WP.Services
             Decoders.AddDecoder<GifDecoder>();
         }
 
-        public static void SetImageStream(string imageUrl, Action<byte[]> callback)
+        public void SetImageStream(string imageUrl, Action<byte[]> callback)
         {
             #region if cached
             if (imageCacheDic.ContainsKey(imageUrl)
@@ -48,7 +48,7 @@ namespace Chicken4WP.Services
             #endregion
         }
 
-        private static void DownloadImage(WebResponse response, string url)
+        private void DownloadImage(WebResponse response, string url)
         {
             using (Stream stream = response.GetResponseStream())
             {

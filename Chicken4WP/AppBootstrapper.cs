@@ -38,7 +38,7 @@ namespace Chicken4WP
 
             #region services
             container.Instance<ProgressService>(new ProgressService(RootFrame));
-            container.Singleton<StorageService>();
+            //container.Singleton<StorageService>();
             container.PerRequest<ToastMessageService>();
             container.PerRequest<ImageCacheService>();
 #if LOCAL

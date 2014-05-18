@@ -45,7 +45,7 @@ namespace Chicken4WP.Controls
 
         private void SourceUrlChanged()
         {
-            ImageCacheService.SetImageStream(ImageUrl, SetImageSource);
+            imageCacheService.SetImageStream(ImageUrl, SetImageSource);
         }
 
         private void SetImageSource(byte[] data)
