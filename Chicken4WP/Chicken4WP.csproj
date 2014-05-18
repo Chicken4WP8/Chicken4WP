@@ -341,7 +341,10 @@
     <Content Include="Images\dark\appbar.check.png" />
     <Content Include="Images\SplashScreenImage.jpg" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ViewModels\Status\" />
+    <Folder Include="Views\Status\" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\AppResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
