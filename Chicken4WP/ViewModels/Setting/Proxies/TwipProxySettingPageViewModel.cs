@@ -8,6 +8,7 @@ using Chicken4WP.Services.Interface;
 using Chicken4WP.ViewModels.Home;
 using Microsoft.Phone.Controls;
 using Newtonsoft.Json;
+using System.Windows;
 
 namespace Chicken4WP.ViewModels.Setting.Proxies
 {
@@ -31,12 +32,13 @@ namespace Chicken4WP.ViewModels.Setting.Proxies
 
         public TwipProxySettingPageViewModel(ToastMessageService toastMessageService, INavigationService navigationService)
         {
-            this.tweetService = AppBootstrapper.Container.GetInstance(typeof(ITweetService), Const.TWIPTWEETSERVICE) as ITweetService;
+            this.tweetService = (Application.Current.Resources["bootstrapper"] as AppBootstrapper)
+                .Container.GetInstance(typeof(ITweetService), Const.TWIPTWEETSERVICENAME) as ITweetService;
             this.toastMessageService = toastMessageService;
             this.navigationService = navigationService;
             var twip = ChickenDataContext.Instance.Settings
                            .SingleOrDefault(s => s.Type == SettingType.ProxySetting && s.IsEnabled &&
-                               s.Name == "Twip4");
+                               s.Name == Const.TWIPTWEETSERVICENAME);
             if (twip != null)
             {
                 Url = twip.Data;

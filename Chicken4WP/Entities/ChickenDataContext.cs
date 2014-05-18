@@ -1,4 +1,5 @@
 ﻿using System.Data.Linq;
+using Chicken4WP.Common;
 
 namespace Chicken4WP.Entities
 {
@@ -33,14 +34,14 @@ namespace Chicken4WP.Entities
              {
                  Type = SettingType.ProxySetting,
                  IsEnabled = true,
-                 Name = "Base",
+                 Name = Const.BASETWEETSERVICENAME,
              };
             context.Settings.InsertOnSubmit(proxy);
             var twip = new Setting
             {
                 Type = SettingType.ProxySetting,
                 IsEnabled = true,
-                Name = "Twip4",
+                Name = Const.TWIPTWEETSERVICENAME,
                 Data = "https://wxt2005.org/tapi/o/6Z66RF"
             };
             context.Settings.InsertOnSubmit(twip);

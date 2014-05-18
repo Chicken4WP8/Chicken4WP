@@ -157,7 +157,9 @@
                         <RowDefinition />
                         <RowDefinition />
                     </Grid.RowDefinitions>
-                    <Button Grid.Row="0" >
+                    <Button Grid.Row="0"
+                            cal:Action.TargetWithoutContext="{Binding ElementName=Items,Path=DataContext}"
+                            cal:Message.Attach="[Event Click] = [Action ItemClick($datacontext, $eventArgs)]">
                         <Button.Template>
                             <ControlTemplate>
                                 <Grid>

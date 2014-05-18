@@ -6,7 +6,8 @@ namespace Chicken4WP.Common
     public class Const
     {
         #region defalut value
-        public const string TWIPTWEETSERVICE = "twipTweetService";
+        public const string BASETWEETSERVICENAME = "Base";
+        public const string TWIPTWEETSERVICENAME = "Twip4";
 
         public const string CHICKEN_FAMOUS = "https://raw.github.com/george674834080/Chicken/master/Chicken/Data/famous.json";
         public static string testAPI = "http://";

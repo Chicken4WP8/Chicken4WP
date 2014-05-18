@@ -17,8 +17,8 @@ namespace Chicken4WP
 {
     public class AppBootstrapper : PhoneBootstrapperBase
     {
-        private static PhoneContainer container = new PhoneContainer();
-        public static PhoneContainer Container
+        private PhoneContainer container = new PhoneContainer();
+        public PhoneContainer Container
         {
             get
             {
@@ -44,7 +44,7 @@ namespace Chicken4WP
 #if LOCAL
             container.RegisterPerRequest(typeof(ITweetService), Const.TWIPTWEETSERVICE, typeof(MockedTweetService));
 #else
-            container.RegisterPerRequest(typeof(ITweetService), Const.TWIPTWEETSERVICE, typeof(TwipTweetService));
+            container.RegisterPerRequest(typeof(ITweetService), Const.TWIPTWEETSERVICENAME, typeof(TwipTweetService));
             //container.RegisterPerRequest(typeof(ITweetService), "baseTweetService", typeof(BaseTweetService));
 #endif
             #endregion
@@ -109,15 +109,15 @@ namespace Chicken4WP
             //long list selector
             ConventionManager.AddElementConvention<LongListSelector>(LongListSelector.ItemsSourceProperty, "DataContext", "Loaded");
 
-            ConventionManager.AddElementConvention<LongListSelector>(LongListSelector.ItemsSourceProperty, "SelectedItem", "SelectionChanged")
-                .ApplyBinding =
-               (viewModelType, path, property, element, convention) =>
-               {
-                   if (!ConventionManager.SetBindingWithoutBindingOrValueOverwrite(viewModelType, path, property, element, convention, LongListSelector.ItemsSourceProperty))
-                       return false;
-                   ConventionManager.ConfigureSelectedItem(element, LongListSelector.SelectedItemProperty, viewModelType, path);
-                   return true;
-               };
+            //ConventionManager.AddElementConvention<LongListSelector>(LongListSelector.ItemsSourceProperty, "SelectedItem", "SelectionChanged")
+            //    .ApplyBinding =
+            //   (viewModelType, path, property, element, convention) =>
+            //   {
+            //       if (!ConventionManager.SetBindingWithoutBindingOrValueOverwrite(viewModelType, path, property, element, convention, LongListSelector.ItemsSourceProperty))
+            //           return false;
+            //       ConventionManager.ConfigureSelectedItem(element, LongListSelector.SelectedItemProperty, viewModelType, path);
+            //       return true;
+            //   };
         }
 
         protected override object GetInstance(Type service, string key)

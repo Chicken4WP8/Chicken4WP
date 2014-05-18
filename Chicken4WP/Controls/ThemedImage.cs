@@ -13,10 +13,13 @@ namespace Chicken4WP.Controls
     {
         private const string ElementImageBrushName = "ImageBrush";
         private Image ElementImageBrush;
+        private ImageCacheService imageCacheService;
 
         public ThemedImage()
         {
             DefaultStyleKey = typeof(ThemedImage);
+            this.imageCacheService = (Application.Current.Resources["bootstrapper"] as AppBootstrapper).Container
+                .GetInstance(typeof(ImageCacheService), null) as ImageCacheService;
         }
 
         #region public ImageSource Source

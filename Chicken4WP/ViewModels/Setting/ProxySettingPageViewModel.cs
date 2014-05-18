@@ -73,7 +73,5 @@ namespace Chicken4WP.ViewModels.Setting
                     break;
             }
         }
-
-
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using System.Linq;
 using System.Threading;
+using System.Windows;
 using Caliburn.Micro;
 using Chicken4WP.Entities;
 using Chicken4WP.Resources;
@@ -29,7 +30,8 @@ namespace Chicken4WP
         {
             Helper.SetLanguage(cultureInfo);
             NotifyOfPropertyChange("Item[]");
-            var eventAggregator = AppBootstrapper.Container.GetInstance(typeof(IEventAggregator), null) as IEventAggregator;
+            var eventAggregator = (Application.Current.Resources["bootstrapper"] as AppBootstrapper).Container
+                .GetInstance(typeof(IEventAggregator), null) as IEventAggregator;
             eventAggregator.Publish(cultureInfo);
         }
 

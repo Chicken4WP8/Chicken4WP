@@ -1,15 +1,14 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Globalization;
+using System.Linq;
 using System.Windows;
+using System.Windows.Media.Imaging;
 using Caliburn.Micro;
-using Chicken4WP.Common;
+using Chicken4WP.Entities;
 using Chicken4WP.Models;
 using Chicken4WP.Services;
 using Chicken4WP.Services.Interface;
-using System.Linq;
-using System.Windows.Controls;
-using System.Windows.Media.Imaging;
-using System;
 
 namespace Chicken4WP.ViewModels.Home
 {
@@ -18,18 +17,17 @@ namespace Chicken4WP.ViewModels.Home
         private readonly IEventAggregator eventAggregator;
         private readonly ToastMessageService toastMessageService;
         private readonly ITweetService tweetService;
-        private readonly ImageCacheService imageCacheService;
 
         private static BitmapImage defaultImage = new BitmapImage(new Uri("/Images/dark/cat.png", UriKind.Relative));
 
-        public IndexViewModel(ToastMessageService toastMessageService, IEventAggregator eventAggregator, ImageCacheService imageCacheService)
+        public IndexViewModel(ToastMessageService toastMessageService, IEventAggregator eventAggregator)
         {
             this.toastMessageService = toastMessageService;
             this.eventAggregator = eventAggregator;
             eventAggregator.Subscribe(this);
-            this.imageCacheService = imageCacheService;
-            this.tweetService = AppBootstrapper.Container.GetInstance(typeof(ITweetService), Const.TWIPTWEETSERVICE) as ITweetService;
-
+            var proxy = ChickenDataContext.Instance.Settings.SingleOrDefault(s => s.Type == SettingType.ProxySetting && s.IsInUsed);
+            this.tweetService = (Application.Current.Resources["bootstrapper"] as AppBootstrapper).Container
+                .GetInstance(typeof(ITweetService), proxy.Name) as ITweetService;
             SetLanguage();
         }
 
@@ -42,22 +40,6 @@ namespace Chicken4WP.ViewModels.Home
                 items = value;
                 NotifyOfPropertyChange(() => Items);
             }
-        }
-
-        private Tweet selectedItem;
-        public Tweet SelectedItem
-        {
-            get { return selectedItem; }
-            set
-            {
-                selectedItem = value;
-                NotifyOfPropertyChange(() => SelectedItem);
-            }
-        }
-
-        protected override void OnInitialize()
-        {
-            base.OnInitialize();
         }
 
         protected override void OnActivate()
@@ -85,7 +67,12 @@ namespace Chicken4WP.ViewModels.Home
 
         public void AvatarClick(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
+            var tweet = sender as Tweet;
+        }
+
+        public void ItemClick(object sender, RoutedEventArgs e)
+        {
+            var tweet = sender as Tweet;
         }
 
         public void Handle(CultureInfo message)
