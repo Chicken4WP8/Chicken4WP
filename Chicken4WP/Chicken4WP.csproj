@@ -162,8 +162,10 @@
     </Compile>
     <Compile Include="Services\ImageCacheService.cs" />
     <Compile Include="Services\Implemention\MockedTweetService.cs" />
+    <Compile Include="Services\Implemention\StorageService.cs" />
     <Compile Include="Services\Implemention\TweetServiceBase.cs" />
     <Compile Include="Services\Implemention\TwipTweetService.cs" />
+    <Compile Include="Services\Interface\IStorageService.cs" />
     <Compile Include="Services\Interface\ITweetService.cs" />
     <Compile Include="Services\Interface\Option.cs" />
     <Compile Include="Services\ProgressService.cs" />
@@ -173,9 +175,13 @@
     <Compile Include="ViewModels\Home\IndexViewModel.cs" />
     <Compile Include="ViewModels\Home\MentionViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
+    <Compile Include="ViewModels\PivotItemViewModelBase.cs" />
     <Compile Include="ViewModels\Setting\Proxies\BaseProxySettingPageViewModel.cs" />
     <Compile Include="ViewModels\Setting\Proxies\TwipProxySettingPageViewModel.cs" />
     <Compile Include="ViewModels\Setting\ProxySettingPageViewModel.cs" />
+    <Compile Include="ViewModels\Status\StatusPageViewModel.cs" />
+    <Compile Include="ViewModels\Status\StatusRetweetViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\Home\DMView.xaml.cs">
       <DependentUpon>DMView.xaml</DependentUpon>
     </Compile>
@@ -199,6 +205,12 @@
     </Compile>
     <Compile Include="Views\Setting\ProxySettingPage.xaml.cs">
       <DependentUpon>ProxySettingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Status\StatusPage.xaml.cs">
+      <DependentUpon>StatusPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Status\StatusRetweetView.xaml.cs">
+      <DependentUpon>StatusRetweetView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -239,6 +251,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Setting\ProxySettingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Status\StatusPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Status\StatusRetweetView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -341,10 +361,7 @@
     <Content Include="Images\dark\appbar.check.png" />
     <Content Include="Images\SplashScreenImage.jpg" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\Status\" />
-    <Folder Include="Views\Status\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Resources\AppResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

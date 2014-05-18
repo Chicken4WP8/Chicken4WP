@@ -1,23 +1,13 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
 using Caliburn.Micro;
-using Chicken4WP.Entities;
-using Chicken4WP.Services;
+using Chicken4WP.Common;
 using Chicken4WP.ViewModels.Setting.Proxies;
 
 namespace Chicken4WP.ViewModels.Setting
 {
-    public class ProxySettingPageViewModel : Screen
+    public class ProxySettingPageViewModel : ViewModelBase
     {
-        private readonly ProgressService progressService;
-        private readonly INavigationService navigationService;
-
-        public ProxySettingPageViewModel(INavigationService navigationService, ProgressService progressService)
-        {
-            this.navigationService = navigationService;
-            this.progressService = progressService;
-        }
-
         private ObservableCollection<Entities.Setting> items;
         public ObservableCollection<Entities.Setting> Items
         {
@@ -51,7 +41,7 @@ namespace Chicken4WP.ViewModels.Setting
             base.OnActivate();
             if (Items == null)
             {
-                var list = ChickenDataContext.Instance.Settings.Where(s => s.Type == SettingType.ProxySetting);
+                var list = storageService.GetProxySettings();
                 Items = new ObservableCollection<Entities.Setting>(list);
                 SelectedItem = list.SingleOrDefault(s => s.IsInUsed) ?? list.First();
             }
@@ -61,12 +51,12 @@ namespace Chicken4WP.ViewModels.Setting
         {
             switch (SelectedItem.Name)
             {
-                case "Base":
+                case Const.BASETWEETSERVICENAME:
                     navigationService
                         .UriFor<BaseProxySettingPageViewModel>()
                         .Navigate();
                     break;
-                case "Twip4":
+                case Const.TWIPTWEETSERVICENAME:
                     navigationService
                         .UriFor<TwipProxySettingPageViewModel>()
                         .Navigate();

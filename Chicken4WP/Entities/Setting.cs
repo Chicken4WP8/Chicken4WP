@@ -28,5 +28,6 @@ namespace Chicken4WP.Entities
     {
         ProxySetting = 1,
         LanguageSetting = 2,
+        CurrentUser = 3,
     }
 }

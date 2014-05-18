@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using Chicken4WP.Entities;
+﻿using System.Windows;
+using Chicken4WP.Services.Interface;
 
 namespace Chicken4WP.Services.Implemention
 {
@@ -7,9 +7,9 @@ namespace Chicken4WP.Services.Implemention
     {
         public TwipTweetService()
         {
-            var twip = ChickenDataContext.Instance.Settings
-                .Single(s => s.Type == SettingType.ProxySetting && s.IsEnabled &&
-                    s.Name == "Twip4");
+            var container = (Application.Current.Resources["bootstrapper"] as AppBootstrapper).Container;
+            var storageService = container.GetInstance(typeof(IStorageService), null) as IStorageService;
+            var twip = storageService.GetCurrentProxySetting();
             client.BaseUrl = twip.Data;
         }
     }

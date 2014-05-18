@@ -37,10 +37,11 @@ namespace Chicken4WP
                 container.RegisterPhoneServices(RootFrame);
 
             #region services
-            container.Instance<ProgressService>(new ProgressService(RootFrame));
-            //container.Singleton<StorageService>();
+            container.Instance<ProgressService>(new ProgressService(RootFrame));            
             container.PerRequest<ToastMessageService>();
             container.PerRequest<ImageCacheService>();
+            container.PerRequest<IStorageService, StorageService>();
+
 #if LOCAL
             container.RegisterPerRequest(typeof(ITweetService), Const.TWIPTWEETSERVICE, typeof(MockedTweetService));
 #else

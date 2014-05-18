@@ -1,18 +1,17 @@
-﻿using System.Linq;
-using Caliburn.Micro;
-using Chicken4WP.Entities;
+﻿using Caliburn.Micro;
 using Chicken4WP.ViewModels.Setting;
 
 namespace Chicken4WP.ViewModels
 {
-    public class MainPageViewModel
+    public class MainPageViewModel : ViewModelBase
     {
-        public MainPageViewModel(INavigationService navigationService)
+        protected override void OnActivate()
         {
-            var currentUser = ChickenDataContext.Instance.Accounts.FirstOrDefault();
+            base.OnActivate();
+            var currentUser = storageService.GetCurrentUser();
             if (currentUser != null)
             {
-
+                App.UpdateCurrentUser(currentUser);
             }
             else
             {

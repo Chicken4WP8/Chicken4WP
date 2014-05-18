@@ -3,15 +3,13 @@ using Caliburn.Micro;
 
 namespace Chicken4WP.ViewModels.Home
 {
-    public class DMViewModel : Screen, IHandle<CultureInfo>
+    public class DMViewModel : ViewModelBase, IHandle<CultureInfo>
     {
         private readonly IEventAggregator eventAggregator;
 
-        public DMViewModel(IEventAggregator eventAggregator)
+        protected override void OnActivate()
         {
-            this.eventAggregator = eventAggregator;
-            eventAggregator.Subscribe(this);
-
+            base.OnActivate();
             SetLanguage();
         }
 
@@ -22,7 +20,7 @@ namespace Chicken4WP.ViewModels.Home
 
         private void SetLanguage()
         {
-            DisplayName = LanguageHelper.GetString("HomePage_DM_Header");
+            DisplayName = languageHelper.GetString("HomePage_DM_Header");
         }
     }
 }

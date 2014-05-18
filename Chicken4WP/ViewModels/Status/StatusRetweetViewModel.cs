@@ -1,9 +1,9 @@
 ﻿using System.Globalization;
 using Caliburn.Micro;
 
-namespace Chicken4WP.ViewModels.Home
+namespace Chicken4WP.ViewModels.Status
 {
-    public class MentionViewModel : ViewModelBase, IHandle<CultureInfo>
+    public class StatusRetweetViewModel : ViewModelBase, IHandle<CultureInfo>
     {
         protected override void OnActivate()
         {
@@ -18,7 +18,7 @@ namespace Chicken4WP.ViewModels.Home
 
         private void SetLanguage()
         {
-            DisplayName = languageHelper.GetString("HomePage_Mention_Header");
+            DisplayName = languageHelper.GetString("HomePage_Index_Header");
         }
     }
 }

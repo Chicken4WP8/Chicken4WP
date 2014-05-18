@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Chicken4WP.Models;
 using Microsoft.Phone.Controls;
 
 namespace Chicken4WP
@@ -10,6 +11,13 @@ namespace Chicken4WP
         public App()
         {
             InitializeComponent();
+        }
+
+        public static User CurrentUser { get; private set; }
+
+        public static void UpdateCurrentUser(User user)
+        {
+            CurrentUser = user;
         }
     }
 }

@@ -1,20 +1,25 @@
 ﻿using System.Globalization;
-using System.Linq;
 using System.Threading;
 using System.Windows;
 using Caliburn.Micro;
-using Chicken4WP.Entities;
 using Chicken4WP.Resources;
+using Chicken4WP.Services.Interface;
 
 namespace Chicken4WP
 {
     public class LanguageHelper : PropertyChangedBase
     {
+        protected readonly IEventAggregator eventAggregator;
+        protected readonly IStorageService storageService;
+
         public LanguageHelper()
         {
+            var container = (Application.Current.Resources["bootstrapper"] as AppBootstrapper).Container;
+            this.eventAggregator = container.GetInstance(typeof(IEventAggregator), null) as IEventAggregator;
+            this.storageService = container.GetInstance(typeof(IStorageService), null) as IStorageService;
+
             CultureInfo cultureInfo = null;
-            var setting = ChickenDataContext.Instance.Settings.FirstOrDefault(
-                s => s.Type == SettingType.LanguageSetting && s.IsInUsed && s.IsEnabled);
+            var setting = storageService.GetCurrentLanguage();
             if (setting != null)
             {
                 cultureInfo = new CultureInfo(setting.Name);
@@ -23,60 +28,31 @@ namespace Chicken4WP
             {
                 cultureInfo = CultureInfo.CurrentCulture;
             }
-            Helper.SetLanguage(cultureInfo);
+            SetLanguage(cultureInfo);
         }
 
         public void SetLanguage(CultureInfo cultureInfo)
         {
-            Helper.SetLanguage(cultureInfo);
+            storageService.UpdateLanguage(cultureInfo.Name);
+            Thread.CurrentThread.CurrentCulture = cultureInfo;
+            Thread.CurrentThread.CurrentUICulture = cultureInfo;
             NotifyOfPropertyChange("Item[]");
-            var eventAggregator = (Application.Current.Resources["bootstrapper"] as AppBootstrapper).Container
-                .GetInstance(typeof(IEventAggregator), null) as IEventAggregator;
             eventAggregator.Publish(cultureInfo);
         }
 
         public string this[string key]
         {
-            get { return Helper.GetString(key); }
+            get { return GetString(key); }
         }
 
-        public static string GetString(string key, params string[] parameters)
+        public string GetString(string key, params string[] parameters)
         {
-            return string.Format(Helper.GetString(key), parameters);
+            return string.Format(GetString(key), parameters);
         }
 
-        private class Helper
+        private static string GetString(string key)
         {
-            public static void SetLanguage(CultureInfo cultureInfo)
-            {
-                var old = ChickenDataContext.Instance.Settings.FirstOrDefault(
-                    s => s.Type == SettingType.LanguageSetting && s.IsInUsed);
-                if (old != null)
-                {
-                    old.IsInUsed = false;
-                }
-                var setting = ChickenDataContext.Instance.Settings.FirstOrDefault(
-                    s => s.Type == SettingType.LanguageSetting && s.IsEnabled && s.Name == cultureInfo.Name);
-                if (setting == null)
-                {
-                    setting = new Setting
-                    {
-                        Type = SettingType.LanguageSetting,
-                        Name = cultureInfo.Name,
-                    };
-                    ChickenDataContext.Instance.Settings.InsertOnSubmit(setting);
-                }
-                setting.IsEnabled = setting.IsInUsed = true;
-                ChickenDataContext.Instance.SubmitChanges();
-
-                Thread.CurrentThread.CurrentCulture = cultureInfo;
-                Thread.CurrentThread.CurrentUICulture = cultureInfo;
-            }
-
-            public static string GetString(string key)
-            {
-                return AppResources.ResourceManager.GetString(key);
-            }
+            return AppResources.ResourceManager.GetString(key);
         }
     }
 }

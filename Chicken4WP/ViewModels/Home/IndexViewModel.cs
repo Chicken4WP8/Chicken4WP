@@ -1,36 +1,13 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Globalization;
-using System.Linq;
 using System.Windows;
-using System.Windows.Media.Imaging;
 using Caliburn.Micro;
-using Chicken4WP.Entities;
 using Chicken4WP.Models;
-using Chicken4WP.Services;
-using Chicken4WP.Services.Interface;
 
 namespace Chicken4WP.ViewModels.Home
 {
-    public class IndexViewModel : Screen, IHandle<CultureInfo>
+    public class IndexViewModel : ViewModelBase, IHandle<CultureInfo>
     {
-        private readonly IEventAggregator eventAggregator;
-        private readonly ToastMessageService toastMessageService;
-        private readonly ITweetService tweetService;
-
-        private static BitmapImage defaultImage = new BitmapImage(new Uri("/Images/dark/cat.png", UriKind.Relative));
-
-        public IndexViewModel(ToastMessageService toastMessageService, IEventAggregator eventAggregator)
-        {
-            this.toastMessageService = toastMessageService;
-            this.eventAggregator = eventAggregator;
-            eventAggregator.Subscribe(this);
-            var proxy = ChickenDataContext.Instance.Settings.SingleOrDefault(s => s.Type == SettingType.ProxySetting && s.IsInUsed);
-            this.tweetService = (Application.Current.Resources["bootstrapper"] as AppBootstrapper).Container
-                .GetInstance(typeof(ITweetService), proxy.Name) as ITweetService;
-            SetLanguage();
-        }
-
         private ObservableCollection<Tweet> items;
         public ObservableCollection<Tweet> Items
         {
@@ -45,6 +22,7 @@ namespace Chicken4WP.ViewModels.Home
         protected override void OnActivate()
         {
             base.OnActivate();
+            SetLanguage();
             if (Items == null)
             {
                 tweetService.GetHomeTimelineTweets(null,
@@ -59,10 +37,14 @@ namespace Chicken4WP.ViewModels.Home
             }
         }
 
+        public void Handle(CultureInfo message)
+        {
+            SetLanguage();
+        }
+
         public void AppBar_Next()
         {
-            var language = Application.Current.Resources["LanguageHelper"] as LanguageHelper;
-            language.SetLanguage(new CultureInfo("en-US"));
+            languageHelper.SetLanguage(new CultureInfo("en-US"));
         }
 
         public void AvatarClick(object sender, RoutedEventArgs e)
@@ -75,14 +57,9 @@ namespace Chicken4WP.ViewModels.Home
             var tweet = sender as Tweet;
         }
 
-        public void Handle(CultureInfo message)
-        {
-            SetLanguage();
-        }
-
         private void SetLanguage()
         {
-            DisplayName = LanguageHelper.GetString("HomePage_Index_Header");
+            DisplayName = languageHelper.GetString("HomePage_Index_Header");
         }
     }
 }
