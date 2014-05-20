@@ -1,12 +1,11 @@
 ﻿using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows;
-using Caliburn.Micro;
 using Chicken4WP.Models;
 
 namespace Chicken4WP.ViewModels.Home
 {
-    public class IndexViewModel : ViewModelBase, IHandle<CultureInfo>
+    public class IndexViewModel : PivotItemViewModelBase
     {
         private ObservableCollection<Tweet> items;
         public ObservableCollection<Tweet> Items
@@ -22,7 +21,6 @@ namespace Chicken4WP.ViewModels.Home
         protected override void OnActivate()
         {
             base.OnActivate();
-            SetLanguage();
             if (Items == null)
             {
                 tweetService.GetHomeTimelineTweets(null,
@@ -35,11 +33,6 @@ namespace Chicken4WP.ViewModels.Home
                         }
                     });
             }
-        }
-
-        public void Handle(CultureInfo message)
-        {
-            SetLanguage();
         }
 
         public void AppBar_Next()
@@ -57,7 +50,7 @@ namespace Chicken4WP.ViewModels.Home
             var tweet = sender as Tweet;
         }
 
-        private void SetLanguage()
+        protected override void SetLanguage()
         {
             DisplayName = languageHelper.GetString("HomePage_Index_Header");
         }

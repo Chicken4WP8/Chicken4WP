@@ -13,26 +13,23 @@ using Caliburn.Micro.BindableAppBar;
 
 namespace Chicken4WP.ViewModels.Status
 {
-    public class HomePageViewModel : Conductor<Screen>.Collection.OneActive
+    public class StatusPageViewModel : Conductor<Screen>.Collection.OneActive
     {
-        //private IndexViewModel index;
-        //private MentionViewModel mention;
-        //private DMViewModel dm;
+        private StatusDetailViewModel detail;
+        private StatusRetweetViewModel retweet;
 
-        //public HomePageViewModel(IndexViewModel index, MentionViewModel mention, DMViewModel dm)
-        //{
-        //    this.index = index;
-        //    this.mention = mention;
-        //    this.dm = dm;
-        //}
+        public StatusPageViewModel(StatusDetailViewModel detail, StatusRetweetViewModel retweet)
+        {
+            this.detail = detail;
+            this.retweet = retweet;
+        }
 
         protected override void OnInitialize()
         {
             base.OnInitialize();
 
-            //Items.Add(index);
-            //Items.Add(mention);
-            //Items.Add(dm);
+            Items.Add(detail);
+            Items.Add(retweet);
 
             AppBarConductor.Mixin(this);
         }

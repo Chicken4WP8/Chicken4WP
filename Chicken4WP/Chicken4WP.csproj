@@ -179,6 +179,7 @@
     <Compile Include="ViewModels\Setting\Proxies\BaseProxySettingPageViewModel.cs" />
     <Compile Include="ViewModels\Setting\Proxies\TwipProxySettingPageViewModel.cs" />
     <Compile Include="ViewModels\Setting\ProxySettingPageViewModel.cs" />
+    <Compile Include="ViewModels\Status\StatusDetailViewModel.cs" />
     <Compile Include="ViewModels\Status\StatusPageViewModel.cs" />
     <Compile Include="ViewModels\Status\StatusRetweetViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />

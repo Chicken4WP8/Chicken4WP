@@ -3,7 +3,7 @@ using Caliburn.Micro;
 
 namespace Chicken4WP.ViewModels.Status
 {
-    public class StatusRetweetViewModel : PivotItemViewModelBase
+    public class StatusDetailViewModel : PivotItemViewModelBase
     {
         protected override void SetLanguage()
         {
