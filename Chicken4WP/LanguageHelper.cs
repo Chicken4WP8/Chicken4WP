@@ -22,7 +22,7 @@ namespace Chicken4WP
             var setting = storageService.GetCurrentLanguage();
             if (setting != null)
             {
-                cultureInfo = new CultureInfo(setting.Name);
+                cultureInfo = new CultureInfo(setting);
             }
             else
             {

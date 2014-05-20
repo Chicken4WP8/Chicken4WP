@@ -143,9 +143,9 @@
     <Compile Include="Controls\Popup.cs" />
     <Compile Include="Controls\ThemedImage.cs" />
     <Compile Include="Controls\ToastPrompt.cs" />
-    <Compile Include="Entities\Account.cs" />
     <Compile Include="Entities\ChickenDataContext.cs" />
     <Compile Include="Entities\Setting.cs" />
+    <Compile Include="Entities\Temp.cs" />
     <Compile Include="LanguageHelper.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>

@@ -13,7 +13,10 @@ namespace Chicken4WP.Services.Interface
         Setting GetCurrentProxySetting();
         void UpdageProxySetting(Setting setting);
 
-        Setting GetCurrentLanguage();
+        string GetCurrentLanguage();
         void UpdateLanguage(string name);
+
+        Tweet GetTempTweet();
+        void UpdateTempTweet(Tweet tweet);
     }
 }

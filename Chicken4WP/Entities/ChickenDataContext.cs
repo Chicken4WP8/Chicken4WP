@@ -17,5 +17,13 @@ namespace Chicken4WP.Entities
                 return this.GetTable<Setting>();
             }
         }
+
+        public Table<Temp> Temps
+        {
+            get
+            {
+                return this.GetTable<Temp>();
+            }
+        }
     }
 }

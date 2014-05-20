@@ -86,15 +86,23 @@ namespace Chicken4WP.Services.Implemention
             var old = context.Settings.SingleOrDefault(s => s.Type == SettingType.ProxySetting && s.IsInUsed);
             if (old != null) old.IsInUsed = false;
             var @new = context.Settings.SingleOrDefault(s => s.Type == setting.Type && s.IsEnabled && s.Name == setting.Name);
-            setting.IsInUsed = setting.IsEnabled = true;
-            @new = setting;
-            context.Settings.InsertOnSubmit(@new);
+            @new = new Setting
+            {
+                Type = SettingType.ProxySetting,
+                IsEnabled = true,
+                IsInUsed = true,
+                Name = setting.Name,
+                Data = setting.Data
+            };
             context.SubmitChanges();
         }
 
-        public Setting GetCurrentLanguage()
+        public string GetCurrentLanguage()
         {
-            return context.Settings.FirstOrDefault(s => s.Type == SettingType.LanguageSetting && s.IsInUsed && s.IsEnabled);
+            var setting = context.Settings.FirstOrDefault(s => s.Type == SettingType.LanguageSetting && s.IsInUsed && s.IsEnabled);
+            if (setting != null)
+                return setting.Name;
+            return string.Empty;
         }
 
         public void UpdateLanguage(string name)
@@ -110,6 +118,26 @@ namespace Chicken4WP.Services.Implemention
                 context.Settings.InsertOnSubmit(setting);
             }
             setting.IsEnabled = setting.IsInUsed = true;
+            context.SubmitChanges();
+        }
+
+        public Tweet GetTempTweet()
+        {
+            var temp = context.Temps.FirstOrDefault(t => t.Type == TempType.TweetDetail);
+            if (temp != null)
+                return JsonConvert.DeserializeObject<Tweet>(temp.Data);
+            return null;
+        }
+
+        public void UpdateTempTweet(Tweet tweet)
+        {
+            var temp = context.Temps.FirstOrDefault(t => t.Type == TempType.TweetDetail);
+            if (temp == null)
+            {
+                temp = new Temp { Type = TempType.TweetDetail };
+                context.Temps.InsertOnSubmit(temp);
+            }
+            temp.Data = JsonConvert.SerializeObject(tweet);
             context.SubmitChanges();
         }
     }
