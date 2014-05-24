@@ -70,9 +70,7 @@ namespace Chicken4WP.Models
         {
             get
             {
-                return Entities != null &&
-                    Entities.Medias != null &&
-                    Entities.Medias.Count != 0;
+                return Entities != null && Entities.Medias != null && Entities.Medias.Count != 0;
             }
         }
 
@@ -104,6 +102,18 @@ namespace Chicken4WP.Models
                 if (Entities.Medias != null)
                     parsedentities.AddRange(Utils.ParseMedias(Text, Entities.Medias));
                 return parsedentities;
+            }
+        }
+
+        /// <summary>
+        ///show retweet count, favorite count and location panel
+        /// </summary>
+        [JsonIgnore]
+        public bool NeedShowRetweetIcons
+        {
+            get
+            {
+                return RetweetCount != "0" || FavoriteCount != "0" || IncludeCoordinates;
             }
         }
     }

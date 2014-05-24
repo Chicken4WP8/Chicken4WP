@@ -7,7 +7,7 @@ namespace Chicken4WP.ViewModels.Status
     {
         protected override void SetLanguage()
         {
-            DisplayName = languageHelper.GetString("HomePage_Index_Header");
+            DisplayName = "Retweet";
         }
     }
 }

@@ -56,9 +56,6 @@ namespace Chicken4WP
             container.PerRequest<ProxySettingPageViewModel>();
             container.PerRequest<BaseProxySettingPageViewModel>();
             container.PerRequest<TwipProxySettingPageViewModel>();
-            container.PerRequest<StatusPageViewModel>();
-            container.PerRequest<StatusDetailViewModel>();
-            container.PerRequest<StatusRetweetViewModel>();
             #endregion
 
             #region pivot
@@ -66,6 +63,10 @@ namespace Chicken4WP
             container.PerRequest<IndexViewModel>();
             container.PerRequest<MentionViewModel>();
             container.PerRequest<DMViewModel>();
+
+            container.PerRequest<StatusPageViewModel>();
+            container.PerRequest<StatusDetailViewModel>();
+            container.PerRequest<StatusRetweetViewModel>();
             #endregion
 
             AddCustomConventions();

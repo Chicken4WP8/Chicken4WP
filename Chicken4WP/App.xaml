@@ -79,6 +79,13 @@
             <Setter Property="Height" Value="16" />
             <Setter Property="Margin" Value="2" />
         </Style>
+        
+        <!--tweet detail border, for retweet count,location, etc.-->
+        <Style x:Name="RetweetCountBorder" TargetType="Border">
+            <Setter Property="Opacity" Value="0.8" />
+            <Setter Property="BorderBrush" Value="Silver" />
+            <Setter Property="Margin" Value="0,4,0,0" />
+        </Style>
 
         <!--profile image-->
         <Style x:Name="ProfileImage" TargetType="Button">
@@ -122,6 +129,13 @@
         <Style x:Name="TweetScreenName" TargetType="TextBlock" BasedOn="{StaticResource TextSmall}">
             <Setter Property="FontFamily" Value="{StaticResource FontFamily}" />
             <Setter Property="Opacity" Value="0.6" />
+        </Style>
+
+        <!--Content default is Medium-->
+        <Style x:Name="TextContent" TargetType="ctrls:AutoRichTextBox">
+            <Setter Property="FontFamily" Value="{StaticResource FontFamily}" />
+            <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeMedium}" />
+            <Setter Property="TextWrapping" Value="Wrap" />
         </Style>
 
         <!--HyperLink Text small-->

@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows;
 using Chicken4WP.Models;
 
 namespace Chicken4WP.ViewModels.Status
@@ -35,7 +36,12 @@ namespace Chicken4WP.ViewModels.Status
 
         protected override void SetLanguage()
         {
-            DisplayName = languageHelper.GetString("HomePage_Index_Header");
+            DisplayName = "Detail";
+        }
+
+        public void AvatarClick(object sender, RoutedEventArgs e)
+        {
+            var tweet = sender as Tweet;
         }
     }
 }
