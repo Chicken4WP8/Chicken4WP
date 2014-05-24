@@ -1,12 +1,21 @@
-﻿using System.Globalization;
-using Caliburn.Micro;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using Chicken4WP.Models;
 
 namespace Chicken4WP.ViewModels.Status
 {
     public class StatusDetailViewModel : PivotItemViewModelBase
     {
+        private Tweet tweet;
+        public Tweet Tweet
+        {
+            get { return tweet; }
+            set
+            { 
+                tweet = value;
+                NotifyOfPropertyChange(() => Tweet);
+            }
+        }
+
         private ObservableCollection<Tweet> items;
         public ObservableCollection<Tweet> Items
         {
@@ -21,6 +30,7 @@ namespace Chicken4WP.ViewModels.Status
         protected override void OnActivate()
         {
             base.OnActivate();
+            Tweet = storageService.GetTempTweet();
         }
 
         protected override void SetLanguage()

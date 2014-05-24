@@ -60,7 +60,7 @@ namespace Chicken4WP.Services
             response.Close();
         }
 
-        private static void AddImageCache(string imageUrl, byte[] data)
+        public static void AddImageCache(string imageUrl, byte[] data)
         {
             lock (locker)
             {

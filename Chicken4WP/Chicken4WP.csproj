@@ -207,6 +207,9 @@
     <Compile Include="Views\Setting\ProxySettingPage.xaml.cs">
       <DependentUpon>ProxySettingPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Status\StatusDetailView.xaml.cs">
+      <DependentUpon>StatusDetailView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Status\StatusPage.xaml.cs">
       <DependentUpon>StatusPage.xaml</DependentUpon>
     </Compile>
@@ -252,6 +255,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Setting\ProxySettingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Status\StatusDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

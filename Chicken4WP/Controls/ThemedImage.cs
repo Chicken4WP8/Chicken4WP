@@ -1,10 +1,16 @@
-﻿using System.IO;
+﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Chicken4WP.Services;
 using ImageTools;
+using ImageTools.IO;
+using ImageTools.IO.Bmp;
+using ImageTools.IO.Gif;
+using ImageTools.IO.Png;
 
 namespace Chicken4WP.Controls
 {
@@ -17,6 +23,10 @@ namespace Chicken4WP.Controls
 
         public ThemedImage()
         {
+            Decoders.AddDecoder<BmpDecoder>();
+            Decoders.AddDecoder<PngDecoder>();
+            Decoders.AddDecoder<GifDecoder>();
+
             DefaultStyleKey = typeof(ThemedImage);
             this.imageCacheService = (Application.Current.Resources["bootstrapper"] as AppBootstrapper).Container
                 .GetInstance(typeof(ImageCacheService), null) as ImageCacheService;
@@ -68,15 +78,40 @@ namespace Chicken4WP.Controls
                     }
                     #endregion
                     #region others
-                    catch
+                    catch (Exception exception)
                     {
+                        Debug.WriteLine("set gif image. length: {0}", data.Length);
                         var memStream = new MemoryStream(data);
                         memStream.Position = 0;
                         var gifImage = new ExtendedImage();
                         gifImage.SetSource(memStream);
-                        this.Source = gifImage.ToBitmap();
+                        gifImage.LoadingCompleted += ExtendedImageLoadCompleted;
                     }
                     #endregion
+                });
+        }
+
+        private void ExtendedImageLoadCompleted(object sender, EventArgs e)
+        {
+            Deployment.Current.Dispatcher.BeginInvoke(
+                () =>
+                {
+                    try
+                    {
+                        var gifImage = sender as ExtendedImage;
+                        var writeableBitmap = gifImage.ToBitmap();
+                        using (var stream = new MemoryStream())
+                        {
+                            writeableBitmap.SaveJpeg(stream, writeableBitmap.PixelWidth, writeableBitmap.PixelHeight, 0, 100);
+                            this.Source = writeableBitmap;
+                            byte[] bytes = stream.ToArray();
+                            ImageCacheService.AddImageCache(ImageUrl, bytes);
+                        }
+                        gifImage.LoadingCompleted -= ExtendedImageLoadCompleted;
+                    }
+                    catch (Exception exception)
+                    {
+                    }
                 });
         }
 

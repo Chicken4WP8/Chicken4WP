@@ -86,14 +86,18 @@ namespace Chicken4WP.Services.Implemention
             var old = context.Settings.SingleOrDefault(s => s.Type == SettingType.ProxySetting && s.IsInUsed);
             if (old != null) old.IsInUsed = false;
             var @new = context.Settings.SingleOrDefault(s => s.Type == setting.Type && s.IsEnabled && s.Name == setting.Name);
-            @new = new Setting
+            if (@new == null)
             {
-                Type = SettingType.ProxySetting,
-                IsEnabled = true,
-                IsInUsed = true,
-                Name = setting.Name,
-                Data = setting.Data
-            };
+                @new = new Setting
+                {
+                    Type = SettingType.ProxySetting,
+                    Name = setting.Name,
+                    Data = setting.Data
+                };
+                context.Settings.InsertOnSubmit(@new);
+            }
+            @new.IsInUsed = @new.IsEnabled = true;
+            @new.Data = setting.Data;
             context.SubmitChanges();
         }
 
@@ -118,6 +122,7 @@ namespace Chicken4WP.Services.Implemention
                 context.Settings.InsertOnSubmit(setting);
             }
             setting.IsEnabled = setting.IsInUsed = true;
+            setting.Name = name;
             context.SubmitChanges();
         }
 

@@ -4,6 +4,8 @@ using Chicken4WP.Entities;
 using Chicken4WP.Models;
 using Chicken4WP.ViewModels.Home;
 using Microsoft.Phone.Controls;
+using System.Windows;
+using Chicken4WP.Services.Interface;
 
 namespace Chicken4WP.ViewModels.Setting.Proxies
 {
@@ -46,7 +48,9 @@ namespace Chicken4WP.ViewModels.Setting.Proxies
 
         private void TestService()
         {
-            tweetService.TestProxySetting(
+            var container = (Application.Current.Resources["bootstrapper"] as AppBootstrapper).Container;
+            var service = container.GetInstance(typeof(ITweetService), Const.TWIPTWEETSERVICENAME) as ITweetService;
+            service.TestProxySetting(
                 user =>
                 {
                     SaveProxySetting();

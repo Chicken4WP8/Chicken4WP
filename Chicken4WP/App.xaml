@@ -101,6 +101,12 @@
             <Setter Property="Foreground" Value="Silver" />
         </Style>
 
+        <Style x:Name="TextMedium" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource FontFamily}" />
+            <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeMedium}" />
+            <Setter Property="TextTrimming" Value="WordEllipsis" />
+        </Style>
+
         <!--tweet screen name-->
         <Style x:Name="TweetScreenName" TargetType="TextBlock" BasedOn="{StaticResource TextSmall}">
             <Setter Property="FontFamily" Value="{StaticResource FontFamily}" />

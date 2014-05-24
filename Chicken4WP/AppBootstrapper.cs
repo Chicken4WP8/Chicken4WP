@@ -11,6 +11,7 @@ using Chicken4WP.ViewModels;
 using Chicken4WP.ViewModels.Home;
 using Chicken4WP.ViewModels.Setting;
 using Chicken4WP.ViewModels.Setting.Proxies;
+using Chicken4WP.ViewModels.Status;
 using Microsoft.Phone.Controls;
 
 namespace Chicken4WP
@@ -37,13 +38,13 @@ namespace Chicken4WP
                 container.RegisterPhoneServices(RootFrame);
 
             #region services
-            container.Instance<ProgressService>(new ProgressService(RootFrame));            
+            container.Instance<ProgressService>(new ProgressService(RootFrame));
             container.PerRequest<ToastMessageService>();
             container.PerRequest<ImageCacheService>();
             container.PerRequest<IStorageService, StorageService>();
 
 #if LOCAL
-            container.RegisterPerRequest(typeof(ITweetService), Const.TWIPTWEETSERVICE, typeof(MockedTweetService));
+            container.RegisterPerRequest(typeof(ITweetService), Const.TWIPTWEETSERVICENAME, typeof(MockedTweetService));
 #else
             container.RegisterPerRequest(typeof(ITweetService), Const.TWIPTWEETSERVICENAME, typeof(TwipTweetService));
             //container.RegisterPerRequest(typeof(ITweetService), "baseTweetService", typeof(BaseTweetService));
@@ -55,6 +56,9 @@ namespace Chicken4WP
             container.PerRequest<ProxySettingPageViewModel>();
             container.PerRequest<BaseProxySettingPageViewModel>();
             container.PerRequest<TwipProxySettingPageViewModel>();
+            container.PerRequest<StatusPageViewModel>();
+            container.PerRequest<StatusDetailViewModel>();
+            container.PerRequest<StatusRetweetViewModel>();
             #endregion
 
             #region pivot
