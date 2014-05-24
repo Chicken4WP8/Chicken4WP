@@ -11,7 +11,7 @@ namespace Chicken4WP.ViewModels.Status
         {
             get { return tweet; }
             set
-            { 
+            {
                 tweet = value;
                 NotifyOfPropertyChange(() => Tweet);
             }
@@ -36,7 +36,7 @@ namespace Chicken4WP.ViewModels.Status
 
         protected override void SetLanguage()
         {
-            DisplayName = "Detail";
+            DisplayName = languageHelper.GetString("StatusPage_Detail_Header");
         }
 
         public void AvatarClick(object sender, RoutedEventArgs e)

@@ -88,11 +88,47 @@ namespace Chicken4WP.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Detail 的本地化字符串。
         /// </summary>
-        public static string String1 {
+        public static string StatusPage_Detail_Header {
             get {
-                return ResourceManager.GetString("String1", resourceCulture);
+                return ResourceManager.GetString("StatusPage_Detail_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Retweets 的本地化字符串。
+        /// </summary>
+        public static string StatusPage_Retweets_Header {
+            get {
+                return ResourceManager.GetString("StatusPage_Retweets_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 FAVORITES 的本地化字符串。
+        /// </summary>
+        public static string StatusPage_StatusDetail_Favorites {
+            get {
+                return ResourceManager.GetString("StatusPage_StatusDetail_Favorites", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 LOCATION 的本地化字符串。
+        /// </summary>
+        public static string StatusPage_StatusDetail_Location {
+            get {
+                return ResourceManager.GetString("StatusPage_StatusDetail_Location", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 RETWEETS 的本地化字符串。
+        /// </summary>
+        public static string StatusPage_StatusDetail_Retweets {
+            get {
+                return ResourceManager.GetString("StatusPage_StatusDetail_Retweets", resourceCulture);
             }
         }
     }

@@ -8,9 +8,8 @@ namespace Chicken4WP.ViewModels
 {
     public abstract class PivotItemViewModelBase : ViewModelBase, IHandle<CultureInfo>
     {
-        protected override void OnActivate()
+        protected PivotItemViewModelBase()
         {
-            base.OnActivate();
             SetLanguage();
         }
 
