@@ -41,19 +41,7 @@ namespace Chicken4WP.ViewModels.Home
         {
             languageHelper.SetLanguage(new CultureInfo("en-US"));
         }
-
-        public void AvatarClick(object sender, RoutedEventArgs e)
-        {
-            var tweet = sender as Tweet;
-        }
-
-        public void ItemClick(object sender, RoutedEventArgs e)
-        {
-            var tweet = sender as Tweet;
-            storageService.UpdateTempTweet(tweet);
-            navigationService.UriFor<StatusPageViewModel>().Navigate();
-        }
-
+        
         protected override void SetLanguage()
         {
             DisplayName = languageHelper.GetString("HomePage_Index_Header");

@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkits="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:appBar="clr-namespace:Caliburn.Micro.BindableAppBar;assembly=Caliburn.Micro.BindableAppBar"
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
@@ -11,7 +12,9 @@
     d:DesignHeight="480" d:DesignWidth="480">
 
     <Grid x:Name="LayoutRoot">
-        <TextBlock Text="mentions" />
+        <toolkits:LongListSelector x:Name="Items"  IsFlatList="True"
+                                   ItemTemplate="{StaticResource TweetTemplate}">
+        </toolkits:LongListSelector>
 
         <appBar:BindableAppBar>
             <appBar:BindableAppBarButton x:Name="AppBar_Next"

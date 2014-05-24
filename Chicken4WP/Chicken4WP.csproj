@@ -364,6 +364,7 @@
     <Content Include="Libs\PhoneCodeContractsAssemblies.dll" />
     <Content Include="SampleData\hometimeline.json" />
     <Content Include="SampleData\myprofile.json" />
+    <Content Include="SampleData\mentions.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ApplicationIcon.png">

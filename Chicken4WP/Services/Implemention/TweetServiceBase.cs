@@ -21,17 +21,15 @@ namespace Chicken4WP.Services.Implemention
         {
             var request = new RestRequest();
             request.Resource = Const.STATUSES_HOMETIMELINE;
-            if (option != null)
-            {
-                if (option.SinceId != null)
-                {
-                    request.AddParameter(Const.SINCE_ID, option.SinceId);
-                }
-                if (option.MaxId != null)
-                {
-                    request.AddParameter(Const.MAX_ID, option.MaxId);
-                }
-            }
+            CheckSinceAndMaxId(option, request);
+            Execute<TweetList>(request, callback);
+        }
+
+        public void GetMentions(MentionOption option, Action<TweetList> callback)
+        {
+            var request = new RestRequest();
+            request.Resource = Const.STATUSES_MENTIONS_TIMELINE;
+            CheckSinceAndMaxId(option, request);
             Execute<TweetList>(request, callback);
         }
         #endregion
@@ -52,6 +50,21 @@ namespace Chicken4WP.Services.Implemention
                     var data = JsonConvert.DeserializeObject<T>(response.Content, Const.JsonSettings);
                     callback(data);
                 });
+        }
+
+        private void CheckSinceAndMaxId(Option option, RestRequest request)
+        {
+            if (option != null)
+            {
+                if (option.SinceId != null)
+                {
+                    request.AddParameter(Const.SINCE_ID, option.SinceId);
+                }
+                if (option.MaxId != null)
+                {
+                    request.AddParameter(Const.MAX_ID, option.MaxId);
+                }
+            }
         }
     }
 }

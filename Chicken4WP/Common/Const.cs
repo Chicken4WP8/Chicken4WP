@@ -14,8 +14,8 @@ namespace Chicken4WP.Common
 
         public static JsonSerializerSettings JsonSettings = new JsonSerializerSettings
         {
-            NullValueHandling = NullValueHandling.Include,
-            DefaultValueHandling = DefaultValueHandling.Populate
+            NullValueHandling = NullValueHandling.Ignore,
+            DefaultValueHandling = DefaultValueHandling.Ignore
         };
 
         public const string DEFAULTSOURCE = "web";

@@ -16,6 +16,12 @@ namespace Chicken4WP.Services.Implemention
             HandleWebRequest(url, callback);
         }
 
+        public void GetMentions(MentionOption option, Action<TweetList> callback)
+        {
+            string url = "SampleData/mentions.json";
+            HandleWebRequest(url, callback);
+        }
+
         public void TestProxySetting(Action<User> callback)
         {
             string url = "SampleData/myprofile.json";
