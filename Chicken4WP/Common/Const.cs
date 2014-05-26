@@ -23,6 +23,7 @@ namespace Chicken4WP.Common
         #endregion
 
         #region default settings
+        public static int MAX_COUNT = 200;
         public static int DEFAULT_COUNT_VALUE = 20;
         public static int DEFAULT_COUNT_VALUE_PLUS_ONE = DEFAULT_COUNT_VALUE + 1;
         public static string QUOTECHARACTER = "RT";

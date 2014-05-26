@@ -17,20 +17,25 @@ namespace Chicken4WP.Services.Implemention
         }
 
         #region home timeline
-        public virtual void GetHomeTimelineTweets(HomeTimelineTweetOption option, Action<TweetList> callback)
+        public virtual void GetHomeTimelineTweets(Option option, Action<TweetList> callback)
         {
             var request = new RestRequest();
             request.Resource = Const.STATUSES_HOMETIMELINE;
-            CheckSinceAndMaxId(option, request);
-            Execute<TweetList>(request, callback);
+            Execute<TweetList>(request, option, callback);
         }
 
-        public void GetMentions(MentionOption option, Action<TweetList> callback)
+        public void GetMentions(Option option, Action<TweetList> callback)
         {
             var request = new RestRequest();
             request.Resource = Const.STATUSES_MENTIONS_TIMELINE;
-            CheckSinceAndMaxId(option, request);
-            Execute<TweetList>(request, callback);
+            Execute<TweetList>(request, option, callback);
+        }
+        #endregion
+
+        #region status page
+        public void GetStatusDetail(Option option, Action<Tweet> callback)
+        {
+
         }
         #endregion
 
@@ -39,32 +44,31 @@ namespace Chicken4WP.Services.Implemention
         {
             var request = new RestRequest();
             request.Resource = Const.PROFILE_MYSELF;
-            Execute<User>(request, callback);
+            Execute<User>(request, null, callback);
         }
         #endregion
 
-        protected void Execute<T>(IRestRequest request, Action<T> callback)
-        {
-            client.ExecuteAsync(request, response =>
-                {
-                    var data = JsonConvert.DeserializeObject<T>(response.Content, Const.JsonSettings);
-                    callback(data);
-                });
-        }
-
-        private void CheckSinceAndMaxId(Option option, RestRequest request)
+        #region private method
+        protected void Execute<T>(IRestRequest request, Option option, Action<T> callback)
         {
             if (option != null)
             {
-                if (option.SinceId != null)
+                foreach (var item in option)
                 {
-                    request.AddParameter(Const.SINCE_ID, option.SinceId);
+                    request.AddParameter(item.Key, item.Value);
                 }
-                if (option.MaxId != null)
-                {
-                    request.AddParameter(Const.MAX_ID, option.MaxId);
-                }
+                if (option.ContainsKey(Const.SINCE_ID) || option.ContainsKey(Const.MAX_ID))
+                    option.Add(Const.COUNT, Const.DEFAULT_COUNT_VALUE_PLUS_ONE);
+                else
+                    option.Add(Const.COUNT, Const.DEFAULT_COUNT_VALUE);
             }
+
+            client.ExecuteAsync(request, response =>
+            {
+                var data = JsonConvert.DeserializeObject<T>(response.Content, Const.JsonSettings);
+                callback(data);
+            });
         }
+        #endregion
     }
 }

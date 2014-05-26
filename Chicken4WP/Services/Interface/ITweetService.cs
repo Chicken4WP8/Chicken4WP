@@ -6,8 +6,12 @@ namespace Chicken4WP.Services.Interface
     public interface ITweetService
     {
         #region home timeline
-        void GetHomeTimelineTweets(HomeTimelineTweetOption option, Action<TweetList> callback);
-        void GetMentions(MentionOption option, Action<TweetList> callback);
+        void GetHomeTimelineTweets(Option option, Action<TweetList> callback);
+        void GetMentions(Option option, Action<TweetList> callback);
+        #endregion
+
+        #region status page
+        void GetStatusDetail(Option option, Action<Tweet> callback);
         #endregion
 
         #region proxy setting

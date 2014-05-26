@@ -10,13 +10,13 @@ namespace Chicken4WP.Services.Implemention
 {
     public class MockedTweetService : ITweetService
     {
-        public void GetHomeTimelineTweets(HomeTimelineTweetOption option, Action<TweetList> callback)
+        public void GetHomeTimelineTweets(Option option, Action<TweetList> callback)
         {
             string url = "SampleData/hometimeline.json";
             HandleWebRequest(url, callback);
         }
 
-        public void GetMentions(MentionOption option, Action<TweetList> callback)
+        public void GetMentions(Option option, Action<TweetList> callback)
         {
             string url = "SampleData/mentions.json";
             HandleWebRequest(url, callback);
@@ -41,5 +41,11 @@ namespace Chicken4WP.Services.Implemention
             Deployment.Current.Dispatcher.BeginInvoke(() => callback(result));
         }
         #endregion
+
+
+        public void GetStatusDetail(Option option, Action<Tweet> callback)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

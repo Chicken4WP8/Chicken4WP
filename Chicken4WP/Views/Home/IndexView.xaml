@@ -4,6 +4,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkits="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
     xmlns:appBar="clr-namespace:Caliburn.Micro.BindableAppBar;assembly=Caliburn.Micro.BindableAppBar"
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
@@ -13,7 +14,10 @@
 
     <Grid x:Name="LayoutRoot">
         <toolkits:LongListSelector x:Name="Items"  IsFlatList="True"
-                                   ItemTemplate="{StaticResource TweetTemplate}">
+                                   ItemTemplate="{StaticResource TweetTemplate}"
+                                   cal:Message.Attach="[Event StretchingCompleted] = [Action StretchingCompleted($datacontext, $eventArgs)];
+                                   [Event StretchingTop] = [Action StretchingTop($datacontext, $eventArgs)];
+                                   [Event StretchingBottom] = [Action StretchingBottom($datacontext, $eventArgs)]">
         </toolkits:LongListSelector>
 
         <appBar:BindableAppBar>

@@ -36,5 +36,15 @@ namespace Chicken4WP.ViewModels.Home
         {
             DisplayName = languageHelper.GetString("HomePage_Mention_Header");
         }
+
+        protected override void Refresh()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        protected override void Load()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

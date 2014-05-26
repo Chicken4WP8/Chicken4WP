@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Windows;
 using Caliburn.Micro;
 using Chicken4WP.Models;
@@ -8,6 +9,8 @@ namespace Chicken4WP.ViewModels
 {
     public abstract class PivotItemViewModelBase : ViewModelBase, IHandle<CultureInfo>
     {
+        private Stretch stretch;
+
         protected PivotItemViewModelBase()
         {
             SetLanguage();
@@ -17,6 +20,8 @@ namespace Chicken4WP.ViewModels
         {
             SetLanguage();
         }
+
+        protected abstract void SetLanguage();
 
         public virtual void AvatarClick(object sender, RoutedEventArgs e)
         {
@@ -30,6 +35,39 @@ namespace Chicken4WP.ViewModels
             navigationService.UriFor<StatusPageViewModel>().Navigate();
         }
 
-        protected abstract void SetLanguage();
+        public void StretchingCompleted(object sender, EventArgs e)
+        {
+            switch (stretch)
+            {
+                case Stretch.Top:
+                    Refresh();
+                    break;
+                case Stretch.Bottom:
+                    Load();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public void StretchingBottom(object sender, EventArgs e)
+        {
+            stretch = Stretch.Bottom;
+        }
+
+        public void StretchingTop(object sender, EventArgs e)
+        {
+            stretch = Stretch.Top;
+        }
+
+        protected abstract void Refresh();
+        protected abstract void Load();
+    }
+
+    public enum Stretch
+    {
+        None,
+        Top,
+        Bottom,
     }
 }

@@ -39,9 +39,14 @@ namespace Chicken4WP.ViewModels.Status
             DisplayName = languageHelper.GetString("StatusPage_Detail_Header");
         }
 
-        public void AvatarClick(object sender, RoutedEventArgs e)
+        protected override void Refresh()
         {
-            var tweet = sender as Tweet;
+            throw new System.NotImplementedException();
+        }
+
+        protected override void Load()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
