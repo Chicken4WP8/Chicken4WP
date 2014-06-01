@@ -261,9 +261,9 @@ namespace Chicken4WP.Resources {
         /// <summary>
         ///   查找类似 no new tweets yet 的本地化字符串。
         /// </summary>
-        public static string Toast_Msg_NoNewTweets1 {
+        public static string Toast_Msg_NoNewTweets {
             get {
-                return ResourceManager.GetString("Toast_Msg_NoNewTweets1", resourceCulture);
+                return ResourceManager.GetString("Toast_Msg_NoNewTweets", resourceCulture);
             }
         }
         

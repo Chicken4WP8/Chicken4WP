@@ -19,9 +19,9 @@ namespace Chicken4WP.ViewModels.Home
             }
         }
 
-        protected override void OnActivate()
+        protected override void OnInitialize()
         {
-            base.OnActivate();
+            base.OnInitialize();
             if (Items == null)
                 Items = new ObservableCollection<Tweet>();
             RefreshData();

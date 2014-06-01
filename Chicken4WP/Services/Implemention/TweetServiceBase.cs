@@ -33,9 +33,13 @@ namespace Chicken4WP.Services.Implemention
         #endregion
 
         #region status page
-        public void GetStatusDetail(Option option, Action<Tweet> callback)
+        public void GetStatusDetail(string statusId, Action<Tweet> callback)
         {
-
+            var request = new RestRequest();
+            request.Resource = Const.STATUSES_SHOW;
+            var option = new Option();
+            option.Add(Const.ID, statusId);
+            Execute<Tweet>(request, option, callback);
         }
         #endregion
 

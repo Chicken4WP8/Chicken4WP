@@ -50,6 +50,9 @@ namespace Chicken4WP.Services
 
         private void DownloadImage(WebResponse response, string url)
         {
+            if(imageCacheDic.ContainsKey(url) && imageCacheDic[url] != null)
+                return;
+
             using (Stream stream = response.GetResponseStream())
             {
                 var memoryStream = new MemoryStream();

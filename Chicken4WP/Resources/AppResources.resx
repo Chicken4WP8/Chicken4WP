@@ -183,7 +183,7 @@
   <data name="Toast_Msg_NoNewRetweets" xml:space="preserve">
     <value>no new retweets yet</value>
   </data>
-  <data name="Toast_Msg_NoNewTweets1" xml:space="preserve">
+  <data name="Toast_Msg_NoNewTweets" xml:space="preserve">
     <value>no new tweets yet</value>
   </data>
   <data name="Toast_Msg_NoSearchTweetResults" xml:space="preserve">

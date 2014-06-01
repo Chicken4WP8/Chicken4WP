@@ -11,7 +11,7 @@ namespace Chicken4WP.Services.Interface
         #endregion
 
         #region status page
-        void GetStatusDetail(Option option, Action<Tweet> callback);
+        void GetStatusDetail(string statusId, Action<Tweet> callback);
         #endregion
 
         #region proxy setting

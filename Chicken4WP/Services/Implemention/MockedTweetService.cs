@@ -43,9 +43,10 @@ namespace Chicken4WP.Services.Implemention
         #endregion
 
 
-        public void GetStatusDetail(Option option, Action<Tweet> callback)
+        public void GetStatusDetail(string statusId, Action<Tweet> callback)
         {
-            throw new NotImplementedException();
+            string url = "SampleData/tweet.json";
+            HandleWebRequest(url, callback);
         }
     }
 }

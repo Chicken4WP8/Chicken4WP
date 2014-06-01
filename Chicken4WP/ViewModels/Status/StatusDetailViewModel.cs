@@ -1,22 +1,10 @@
 ﻿using System.Collections.ObjectModel;
-using System.Windows;
 using Chicken4WP.Models;
 
 namespace Chicken4WP.ViewModels.Status
 {
     public class StatusDetailViewModel : PivotItemViewModelBase
     {
-        private Tweet tweet;
-        public Tweet Tweet
-        {
-            get { return tweet; }
-            set
-            {
-                tweet = value;
-                NotifyOfPropertyChange(() => Tweet);
-            }
-        }
-
         private ObservableCollection<Tweet> items;
         public ObservableCollection<Tweet> Items
         {
@@ -28,10 +16,13 @@ namespace Chicken4WP.ViewModels.Status
             }
         }
 
-        protected override void OnActivate()
+        protected override void OnInitialize()
         {
-            base.OnActivate();
-            Tweet = storageService.GetTempTweet();
+            base.OnInitialize();
+            if (Items == null)
+                Items = new ObservableCollection<Tweet>();
+            var tweet = storageService.GetTempTweet();
+            Items.Add(tweet);
         }
 
         protected override void SetLanguage()
@@ -41,12 +32,24 @@ namespace Chicken4WP.ViewModels.Status
 
         protected override void RefreshData()
         {
-            throw new System.NotImplementedException();
+            string id = Items[0].InReplyToTweetId;
+            if (string.IsNullOrEmpty(id))
+            {
+                base.LoadDataCompleted();
+                return;
+            }
+            tweetService.GetStatusDetail(id,
+                tweet =>
+                {
+                    if (!tweet.HasError)
+                        Items.Insert(0, tweet);
+                    base.LoadDataCompleted();
+                });
         }
 
         protected override void LoadData()
         {
-            throw new System.NotImplementedException();
+            base.LoadDataCompleted();
         }
     }
 }

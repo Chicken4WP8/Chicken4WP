@@ -365,6 +365,7 @@
     <Content Include="SampleData\hometimeline.json" />
     <Content Include="SampleData\myprofile.json" />
     <Content Include="SampleData\mentions.json" />
+    <Content Include="SampleData\tweet.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ApplicationIcon.png">
