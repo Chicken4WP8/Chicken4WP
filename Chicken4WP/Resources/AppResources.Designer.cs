@@ -131,5 +131,239 @@ namespace Chicken4WP.Resources {
                 return ResourceManager.GetString("StatusPage_StatusDetail_Retweets", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   查找类似 add to favorites successfully 的本地化字符串。
+        /// </summary>
+        public static string Toast_Msg_AddFavoriteSuccessfully {
+            get {
+                return ResourceManager.GetString("Toast_Msg_AddFavoriteSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 can not retweet private user&apos;s tweet 的本地化字符串。
+        /// </summary>
+        public static string Toast_Msg_CannotRetweetPrivateTweet {
+            get {
+                return ResourceManager.GetString("Toast_Msg_CannotRetweetPrivateTweet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 clear successfully 的本地化字符串。
+        /// </summary>
+        public static string Toast_Msg_ClearCacheSuccessfully {
+            get {
+                return ResourceManager.GetString("Toast_Msg_ClearCacheSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 delete successfully 的本地化字符串。
+        /// </summary>
+        public static string Toast_Msg_DeleteSuccessfully {
+            get {
+                return ResourceManager.GetString("Toast_Msg_DeleteSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 follow successfully 的本地化字符串。
+        /// </summary>
+        public static string Toast_Msg_FollowSuccessfully {
+            get {
+                return ResourceManager.GetString("Toast_Msg_FollowSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 hi, {0}~ 的本地化字符串。
+        /// </summary>
+        public static string Toast_Msg_HelloUser {
+            get {
+                return ResourceManager.GetString("Toast_Msg_HelloUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 message sent successfully 的本地化字符串。
+        /// </summary>
+        public static string Toast_Msg_MessageSentSuccessfully {
+            get {
+                return ResourceManager.GetString("Toast_Msg_MessageSentSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 no more mentions 的本地化字符串。
+        /// </summary>
+        public static string Toast_Msg_NoMoreMentions {
+            get {
+                return ResourceManager.GetString("Toast_Msg_NoMoreMentions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 no more retweets 的本地化字符串。
+        /// </summary>
+        public static string Toast_Msg_NoMoreRetweets {
+            get {
+                return ResourceManager.GetString("Toast_Msg_NoMoreRetweets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 no more tweet results for {0} 的本地化字符串。
+        /// </summary>
+        public static string Toast_Msg_NoMoreSearchTweetResults {
+            get {
+                return ResourceManager.GetString("Toast_Msg_NoMoreSearchTweetResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 no more user results for {0} 的本地化字符串。
+        /// </summary>
+        public static string Toast_Msg_NoMoreSearchUserResults {
+            get {
+                return ResourceManager.GetString("Toast_Msg_NoMoreSearchUserResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 no more tweets 的本地化字符串。
+        /// </summary>
+        public static string Toast_Msg_NoMoreTweets {
+            get {
+                return ResourceManager.GetString("Toast_Msg_NoMoreTweets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 no new mentions yet 的本地化字符串。
+        /// </summary>
+        public static string Toast_Msg_NoNewMentions {
+            get {
+                return ResourceManager.GetString("Toast_Msg_NoNewMentions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 no new retweets yet 的本地化字符串。
+        /// </summary>
+        public static string Toast_Msg_NoNewRetweets {
+            get {
+                return ResourceManager.GetString("Toast_Msg_NoNewRetweets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 no new tweets yet 的本地化字符串。
+        /// </summary>
+        public static string Toast_Msg_NoNewTweets1 {
+            get {
+                return ResourceManager.GetString("Toast_Msg_NoNewTweets1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 no tweet results for {0} 的本地化字符串。
+        /// </summary>
+        public static string Toast_Msg_NoSearchTweetResults {
+            get {
+                return ResourceManager.GetString("Toast_Msg_NoSearchTweetResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 no user results for {0} 的本地化字符串。
+        /// </summary>
+        public static string Toast_Msg_NoSearchUserResults {
+            get {
+                return ResourceManager.GetString("Toast_Msg_NoSearchUserResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 only confirmed followers have access to user {0}&apos;s tweets 的本地化字符串。
+        /// </summary>
+        public static string Toast_Msg_NotFollowPrivateUser {
+            get {
+                return ResourceManager.GetString("Toast_Msg_NotFollowPrivateUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 can&apos;t send message to {0} who not follow you 的本地化字符串。
+        /// </summary>
+        public static string Toast_Msg_NotFollowYou {
+            get {
+                return ResourceManager.GetString("Toast_Msg_NotFollowYou", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Remove favorites successfully 的本地化字符串。
+        /// </summary>
+        public static string Toast_Msg_RemoveFavoriteSuccessfully {
+            get {
+                return ResourceManager.GetString("Toast_Msg_RemoveFavoriteSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 request sent successfully 的本地化字符串。
+        /// </summary>
+        public static string Toast_Msg_RequestSentSuccessfully {
+            get {
+                return ResourceManager.GetString("Toast_Msg_RequestSentSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 retweet successfully 的本地化字符串。
+        /// </summary>
+        public static string Toast_Msg_RetweetSuccessfully {
+            get {
+                return ResourceManager.GetString("Toast_Msg_RetweetSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 tweet sent successfully 的本地化字符串。
+        /// </summary>
+        public static string Toast_Msg_TweetSentSuccessfully {
+            get {
+                return ResourceManager.GetString("Toast_Msg_TweetSentSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 unfollow successfully 的本地化字符串。
+        /// </summary>
+        public static string Toast_Msg_UnfollowSuccessfully {
+            get {
+                return ResourceManager.GetString("Toast_Msg_UnfollowSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 aw, some unknown error happened 的本地化字符串。
+        /// </summary>
+        public static string Toast_Msg_UnknowError {
+            get {
+                return ResourceManager.GetString("Toast_Msg_UnknowError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 update successfully 的本地化字符串。
+        /// </summary>
+        public static string Toast_Msg_UpdateMyProfileSuccessfully {
+            get {
+                return ResourceManager.GetString("Toast_Msg_UpdateMyProfileSuccessfully", resourceCulture);
+            }
+        }
     }
 }

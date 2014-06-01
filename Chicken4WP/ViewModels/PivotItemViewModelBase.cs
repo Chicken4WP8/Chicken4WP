@@ -16,12 +16,23 @@ namespace Chicken4WP.ViewModels
             SetLanguage();
         }
 
+        private bool isLoading;
+        public bool IsLoading
+        {
+            get
+            {
+                return isLoading;
+            }
+            set
+            {
+                isLoading = value;
+            }
+        }
+
         public virtual void Handle(CultureInfo message)
         {
             SetLanguage();
         }
-
-        protected abstract void SetLanguage();
 
         public virtual void AvatarClick(object sender, RoutedEventArgs e)
         {
@@ -37,13 +48,18 @@ namespace Chicken4WP.ViewModels
 
         public void StretchingCompleted(object sender, EventArgs e)
         {
+            if (IsLoading)
+                return;
+
+            BeginLoadData();
+
             switch (stretch)
             {
                 case Stretch.Top:
-                    Refresh();
+                    RefreshData();
                     break;
                 case Stretch.Bottom:
-                    Load();
+                    LoadData();
                     break;
                 default:
                     break;
@@ -60,8 +76,23 @@ namespace Chicken4WP.ViewModels
             stretch = Stretch.Top;
         }
 
-        protected abstract void Refresh();
-        protected abstract void Load();
+        protected abstract void SetLanguage();
+
+        protected virtual void BeginLoadData()
+        {
+            IsLoading = true;
+            progressService.Show();
+        }
+
+        protected abstract void RefreshData();
+
+        protected abstract void LoadData();
+
+        protected virtual void LoadDataCompleted()
+        {
+            IsLoading = false;
+            progressService.Hide();
+        }
     }
 
     public enum Stretch

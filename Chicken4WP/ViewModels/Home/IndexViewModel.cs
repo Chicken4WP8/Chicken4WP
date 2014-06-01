@@ -24,7 +24,7 @@ namespace Chicken4WP.ViewModels.Home
             base.OnActivate();
             if (Items == null)
                 Items = new ObservableCollection<Tweet>();
-            Refresh();
+            RefreshData();
         }
 
         public void AppBar_Next()
@@ -37,11 +37,11 @@ namespace Chicken4WP.ViewModels.Home
             DisplayName = languageHelper.GetString("HomePage_Index_Header");
         }
 
-        protected override void Refresh()
+        protected override void RefreshData()
         {
             string sinceId = string.Empty;
             var option = new Option();
-            if (items.Count != 0)
+            if (Items.Count != 0)
             {
                 sinceId = items[0].Id;
                 option.Add(Const.SINCE_ID, sinceId);
@@ -49,20 +49,35 @@ namespace Chicken4WP.ViewModels.Home
             tweetService.GetHomeTimelineTweets(option,
                 tweets =>
                 {
-#if !LOCAL
-                    if (sinceId == tweets[tweets.Count - 1].Id)
-                        tweets.RemoveAt(tweets.Count - 1);
-#endif
-                    for (int i = 0; i < tweets.Count; i++)
+                    if (!tweets.HasError)
                     {
-                        Items.Insert(0, tweets[i]);
-                        if (items.Count >= Const.MAX_COUNT)
-                            Items.RemoveAt(Items.Count - 1);
+                        #region no new tweets yet
+                        if (tweets.Count == 0)
+                        {
+                            toastMessageService.HandleMessage(languageHelper.GetString("Toast_Msg_NoNewTweets"));
+                        }
+                        #endregion
+                        #region add
+                        else
+                        {
+#if !LOCAL
+                            if (sinceId == tweets[tweets.Count - 1].Id)
+                                tweets.RemoveAt(tweets.Count - 1);
+#endif
+                            for (int i = tweets.Count - 1; i >= 0; i--)
+                            {
+                                Items.Insert(0, tweets[i]);
+                                if (Items.Count >= Const.MAX_COUNT)
+                                    Items.RemoveAt(Items.Count - 1);
+                            }
+                        }
                     }
+                        #endregion
+                    base.LoadDataCompleted();
                 });
         }
 
-        protected override void Load()
+        protected override void LoadData()
         {
             if (Items.Count == 0)
                 return;
@@ -72,14 +87,29 @@ namespace Chicken4WP.ViewModels.Home
             tweetService.GetHomeTimelineTweets(option,
                 tweets =>
                 {
-#if !LOCAL
-                    if (maxId == tweets[0].Id)
-                        tweets.RemoveAt(0);
-#endif
-                    foreach (var tweet in tweets)
+                    if (!tweets.HasError)
                     {
-                        Items.Add(tweet);
+                        #region no more tweets
+                        if (tweets.Count == 0)
+                        {
+                            toastMessageService.HandleMessage(languageHelper.GetString("Toast_Msg_NoMoreTweets"));
+                        }
+                        #endregion
+                        #region add
+                        else
+                        {
+#if !LOCAL
+                            if (maxId == tweets[0].Id)
+                                tweets.RemoveAt(0);
+#endif
+                            foreach (var tweet in tweets)
+                            {
+                                Items.Add(tweet);
+                            }
+                        }
+                        #endregion
                     }
+                    base.LoadDataCompleted();
                 });
         }
     }

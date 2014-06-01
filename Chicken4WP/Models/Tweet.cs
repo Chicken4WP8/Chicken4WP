@@ -144,6 +144,6 @@ namespace Chicken4WP.Models
         }
     }
 
-    public class TweetList : List<Tweet>
+    public class TweetList : ModelBaseList<Tweet>
     { }
 }

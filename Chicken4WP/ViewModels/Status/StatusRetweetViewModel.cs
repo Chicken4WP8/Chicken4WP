@@ -10,12 +10,12 @@ namespace Chicken4WP.ViewModels.Status
             DisplayName = languageHelper.GetString("StatusPage_Retweets_Header");
         }
 
-        protected override void Refresh()
+        protected override void RefreshData()
         {
             throw new System.NotImplementedException();
         }
 
-        protected override void Load()
+        protected override void LoadData()
         {
             throw new System.NotImplementedException();
         }
