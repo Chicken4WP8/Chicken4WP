@@ -126,6 +126,21 @@
   <data name="HomePage_Mention_Header" xml:space="preserve">
     <value>Mentions</value>
   </data>
+  <data name="ProfilePage_Favorites_Header" xml:space="preserve">
+    <value>Favorites</value>
+  </data>
+  <data name="ProfilePage_Followers_Header" xml:space="preserve">
+    <value>Followers</value>
+  </data>
+  <data name="ProfilePage_Following_Header" xml:space="preserve">
+    <value>Following</value>
+  </data>
+  <data name="ProfilePage_ProfileDetail_Header" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="ProfilePage_Tweets_Header" xml:space="preserve">
+    <value>Tweets</value>
+  </data>
   <data name="StatusPage_Detail_Header" xml:space="preserve">
     <value>Detail</value>
   </data>

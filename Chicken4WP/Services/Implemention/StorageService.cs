@@ -145,5 +145,25 @@ namespace Chicken4WP.Services.Implemention
             temp.Data = JsonConvert.SerializeObject(tweet);
             context.SubmitChanges();
         }
+
+        public User GetTempUser()
+        {
+            var temp = context.Temps.FirstOrDefault(t => t.Type == TempType.User);
+            if (temp != null)
+                return JsonConvert.DeserializeObject<User>(temp.Data);
+            return null;
+        }
+
+        public void UpdateTempUser(User user)
+        {
+            var temp = context.Temps.FirstOrDefault(t => t.Type == TempType.User);
+            if (temp == null)
+            {
+                temp = new Temp { Type = TempType.User };
+                context.Temps.InsertOnSubmit(temp);
+            }
+            temp.Data = JsonConvert.SerializeObject(user);
+            context.SubmitChanges();
+        }
     }
 }

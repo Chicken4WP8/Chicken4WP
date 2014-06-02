@@ -183,6 +183,12 @@
             <Setter Property="Opacity" Value="0.6" />
         </Style>
 
+        <Style x:Name="ProfileScreenName" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource FontFamily}" />
+            <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeSmall}" />
+            <Setter Property="TextTrimming" Value="WordEllipsis" />
+        </Style>
+
         <!--Content default is Medium-->
         <Style x:Name="TextContent" TargetType="ctrls:AutoRichTextBox">
             <Setter Property="FontFamily" Value="{StaticResource FontFamily}" />
@@ -198,6 +204,7 @@
             <Setter Property="TextAlignment" Value="Right" />
             <Setter Property="TextTrimming" Value="WordEllipsis" />
         </Style>
+
         <!--hyper link button small-->
         <Style x:Name="HyperLinkButtonSmall" TargetType="HyperlinkButton">
             <Setter Property="Template">
@@ -207,6 +214,22 @@
                             <ContentPresenter.ContentTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding}" Style="{StaticResource HyperLinkTextSmall}" />
+                                </DataTemplate>
+                            </ContentPresenter.ContentTemplate>
+                        </ContentPresenter>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Name="HyperLinkNoUnderlineCenter" TargetType="HyperlinkButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="HyperlinkButton">
+                        <ContentPresenter Content="{TemplateBinding Content}">
+                            <ContentPresenter.ContentTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding}" Style="{StaticResource HyperLinkTextNoUnderlineCenter}" />
                                 </DataTemplate>
                             </ContentPresenter.ContentTemplate>
                         </ContentPresenter>

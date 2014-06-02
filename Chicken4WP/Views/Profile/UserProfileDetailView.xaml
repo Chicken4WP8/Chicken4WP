@@ -1,0 +1,119 @@
+﻿<UserControl x:Class="Chicken4WP.Views.Profile.UserProfileDetailView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ctrls="clr-namespace:Chicken4WP.Controls"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="480" d:DesignWidth="480">
+
+    <Grid x:Name="LayoutRoot">
+        <Grid Margin="0,-20,0,0">
+            <ScrollViewer
+                          VerticalContentAlignment="Stretch" VerticalAlignment="Stretch"
+                          HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                <ScrollViewer.Content>
+                    <Grid VerticalAlignment="Stretch">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.Resources>
+                            <Style TargetType="TextBlock" BasedOn="{StaticResource ProfileScreenName}">
+                                <Setter Property="TextAlignment" Value="Center" />
+                                <Setter Property="Margin" Value="2" />
+                            </Style>
+                        </Grid.Resources>
+                        <!--profile banner-->
+                        <ctrls:ThemedImage Grid.Row="1" Opacity="0.6"
+                                           ImageUrl="{Binding ProfileBannerUrl}" />
+                        <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="104" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <!--Profile Image-->
+                            <HyperlinkButton Grid.Row="0"
+                                             NavigateUri="{Binding ProfileImageOriginalUrl}" TargetName="_blank">
+                                <HyperlinkButton.Template>
+                                    <ControlTemplate>
+                                        <ctrls:ThemedImage Width="124" Height="124" Margin="0,-40,0,0"
+                                                           ImageUrl="{Binding ProfileImageBiggerUrl}">
+                                            <ctrls:ThemedImage.Clip>
+                                                <RectangleGeometry Rect="0,0,124,124" RadiusX="6" RadiusY="6" />
+                                            </ctrls:ThemedImage.Clip>
+                                        </ctrls:ThemedImage>
+                                    </ControlTemplate>
+                                </HyperlinkButton.Template>
+                            </HyperlinkButton>
+                            <!--is private, is verified, etc-->
+                            <StackPanel Grid.Row="1" Margin="0,4,0,0" Opacity="0.6"
+                                        Orientation="Horizontal" HorizontalAlignment="Center">
+                                <StackPanel.Resources>
+                                    <Style TargetType="Rectangle" BasedOn="{StaticResource RetweetRectangleSmall}">
+                                        <Setter Property="Fill" Value="{StaticResource PhoneForegroundBrush}" />
+                                        <Setter Property="Margin" Value="2,0" />
+                                        <Setter Property="VerticalAlignment" Value="Bottom" />
+                                    </Style>
+                                </StackPanel.Resources>
+                                <!--private-->
+                                <Rectangle
+                                    Visibility="{Binding User.IsProtected,Converter={StaticResource BooleanToVisibilityConverter}}">
+                                    <Rectangle.OpacityMask>
+                                        <ImageBrush ImageSource="/Images/dark/private.png" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                                <!--Is Translator-->
+                                <Rectangle
+                                    Visibility="{Binding User.IsTranslator,Converter={StaticResource BooleanToVisibilityConverter}}">
+                                    <Rectangle.OpacityMask>
+                                        <ImageBrush ImageSource="/Images/dark/global.png" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                                <!--Is Verified-->
+                                <Rectangle
+                                    Visibility="{Binding User.IsVerified,Converter={StaticResource BooleanToVisibilityConverter}}">
+                                    <Rectangle.OpacityMask>
+                                        <ImageBrush ImageSource="/Images/dark/verified.png" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                                <!--following-->
+                                <Rectangle
+                                    Visibility="{Binding User.IsFollowing,Converter={StaticResource BooleanToVisibilityConverter}}">
+                                    <Rectangle.OpacityMask>
+                                        <ImageBrush ImageSource="/Images/dark/following.png" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                                <!--followedby-->
+                                <!--<Rectangle
+                                            Visibility="{Binding Path=IsFollowedBy,Converter={StaticResource BooleanToVisibilityConverter}}">
+                                    <Rectangle.OpacityMask>
+                                        <ImageBrush ImageSource="/Images/dark/followedby.png" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>-->
+                            </StackPanel>
+
+                        </Grid>
+                        <!--description-->
+                        <ctrls:AutoRichTextBox  Grid.Row="2" Margin="0,6,0,0"
+                                                Entities ="{Binding Path=User.ParsedEntities}"
+                                                Text="{Binding Path=User.Description}"                                                
+                                                HorizontalAlignment="Stretch"
+                                                VerticalAlignment="Center" TextAlignment="Center"
+                                                Style="{StaticResource TextContent}">
+                        </ctrls:AutoRichTextBox>
+                    </Grid>
+                </ScrollViewer.Content>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</UserControl>

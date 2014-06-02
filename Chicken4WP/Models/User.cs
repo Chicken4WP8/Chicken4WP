@@ -71,6 +71,30 @@ namespace Chicken4WP.Models
 
         [JsonProperty("follow_request_sent")]
         public bool IsFollowRequestSent { get; set; }
+
+        private List<EntityBase> parsedentities;
+        [JsonIgnore]
+        public List<EntityBase> ParsedEntities
+        {
+            get
+            {
+                if (parsedentities != null) return parsedentities;
+
+                parsedentities = new List<EntityBase>();
+                parsedentities.AddRange(Utils.ParseUserMentions(Description));
+                parsedentities.AddRange(Utils.ParseHashTags(Description));
+                #region url
+                if (Entities != null &&
+                    Entities.DescriptionEntities != null &&
+                    Entities.DescriptionEntities.Urls != null)
+                {
+                    var parsedUrls = Utils.ParseUrls(Description, Entities.DescriptionEntities.Urls);
+                    parsedentities.AddRange(parsedUrls);
+                }
+                #endregion
+                return parsedentities;
+            }
+        }
     }
 
     public class UserProfileEntities

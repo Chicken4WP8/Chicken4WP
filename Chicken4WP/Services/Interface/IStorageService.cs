@@ -18,5 +18,8 @@ namespace Chicken4WP.Services.Interface
 
         Tweet GetTempTweet();
         void UpdateTempTweet(Tweet tweet);
+
+        User GetTempUser();
+        void UpdateTempUser(User user);
     }
 }

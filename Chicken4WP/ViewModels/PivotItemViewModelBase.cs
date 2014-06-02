@@ -4,6 +4,7 @@ using System.Windows;
 using Caliburn.Micro;
 using Chicken4WP.Models;
 using Chicken4WP.ViewModels.Status;
+using Chicken4WP.ViewModels.Profile;
 
 namespace Chicken4WP.ViewModels
 {
@@ -37,6 +38,8 @@ namespace Chicken4WP.ViewModels
         public virtual void AvatarClick(object sender, RoutedEventArgs e)
         {
             var tweet = sender as Tweet;
+            storageService.UpdateTempUser(tweet.User);
+            navigationService.UriFor<ProfilePageViewModel>().Navigate();
         }
 
         public virtual void ItemClick(object sender, RoutedEventArgs e)

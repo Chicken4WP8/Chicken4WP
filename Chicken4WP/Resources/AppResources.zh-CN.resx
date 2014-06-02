@@ -126,6 +126,21 @@
   <data name="HomePage_Mention_Header" xml:space="preserve">
     <value>提及</value>
   </data>
+  <data name="ProfilePage_Favorites_Header" xml:space="preserve">
+    <value>收藏</value>
+  </data>
+  <data name="ProfilePage_Followers_Header" xml:space="preserve">
+    <value>关注者</value>
+  </data>
+  <data name="ProfilePage_Following_Header" xml:space="preserve">
+    <value>关注</value>
+  </data>
+  <data name="ProfilePage_ProfileDetail_Header" xml:space="preserve">
+    <value>资料</value>
+  </data>
+  <data name="ProfilePage_Tweets_Header" xml:space="preserve">
+    <value>推文</value>
+  </data>
   <data name="StatusPage_Detail_Header" xml:space="preserve">
     <value>详情</value>
   </data>

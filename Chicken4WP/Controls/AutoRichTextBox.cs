@@ -10,6 +10,10 @@ using Chicken4WP.Models;
 
 namespace Chicken4WP.Controls
 {
+    /// <summary>
+    /// set entities property first in xaml,
+    /// then set text property.
+    /// </summary>
     public class AutoRichTextBox : RichTextBox
     {
         private static Brush accentBrush = Application.Current.Resources["PhoneAccentBrush"] as SolidColorBrush;
@@ -35,7 +39,7 @@ namespace Chicken4WP.Controls
         private static void TweetDataPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             var textBox = sender as AutoRichTextBox;
-            if (textBox == null || e.NewValue == null || textBox.Entities == null)
+            if (textBox == null || e.NewValue == null)
                 return;
             textBox.AddEntities();
         }
@@ -43,10 +47,9 @@ namespace Chicken4WP.Controls
         private void AddEntities()
         {
             this.Blocks.Clear();
-            //string text = string.Empty;
             var paragraph = new Paragraph();
             #region none
-            if (Entities.Count == 0)
+            if (Entities == null || Entities.Count == 0)
             {
                 paragraph.Inlines.Add(new Run
                 {

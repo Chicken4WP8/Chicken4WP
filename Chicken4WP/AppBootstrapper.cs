@@ -13,6 +13,7 @@ using Chicken4WP.ViewModels.Setting;
 using Chicken4WP.ViewModels.Setting.Proxies;
 using Chicken4WP.ViewModels.Status;
 using Microsoft.Phone.Controls;
+using Chicken4WP.ViewModels.Profile;
 
 namespace Chicken4WP
 {
@@ -67,6 +68,13 @@ namespace Chicken4WP
             container.PerRequest<StatusPageViewModel>();
             container.PerRequest<StatusDetailViewModel>();
             container.PerRequest<StatusRetweetViewModel>();
+
+            container.PerRequest<ProfilePageViewModel>();
+            container.PerRequest<UserProfileDetailViewModel>();
+            container.PerRequest<UserTweetsViewModel>();
+            container.PerRequest<UserFollowersViewModel>();
+            container.PerRequest<UserFollowingViewModel>();
+            container.PerRequest<UserFavoritesViewModel>();
             #endregion
 
             AddCustomConventions();

@@ -88,6 +88,51 @@ namespace Chicken4WP.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Favorites 的本地化字符串。
+        /// </summary>
+        public static string ProfilePage_Favorites_Header {
+            get {
+                return ResourceManager.GetString("ProfilePage_Favorites_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Followers 的本地化字符串。
+        /// </summary>
+        public static string ProfilePage_Followers_Header {
+            get {
+                return ResourceManager.GetString("ProfilePage_Followers_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Following 的本地化字符串。
+        /// </summary>
+        public static string ProfilePage_Following_Header {
+            get {
+                return ResourceManager.GetString("ProfilePage_Following_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Profile 的本地化字符串。
+        /// </summary>
+        public static string ProfilePage_ProfileDetail_Header {
+            get {
+                return ResourceManager.GetString("ProfilePage_ProfileDetail_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Tweets 的本地化字符串。
+        /// </summary>
+        public static string ProfilePage_Tweets_Header {
+            get {
+                return ResourceManager.GetString("ProfilePage_Tweets_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Detail 的本地化字符串。
         /// </summary>
         public static string StatusPage_Detail_Header {

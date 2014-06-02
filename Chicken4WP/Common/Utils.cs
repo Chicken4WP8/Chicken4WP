@@ -78,6 +78,22 @@ namespace Chicken4WP.Common
             }
         }
 
+        public static IEnumerable<EntityBase> ParseUserMentions(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                yield break;
+            var matches = UserNameRegex.Matches(text);
+            foreach (Match match in matches)
+            {
+                var entity = new UserMention
+                {
+                    Index = match.Groups["name"].Index - 1,//remove @
+                    ScreenName = match.Groups["name"].Value
+                };
+                yield return entity;
+            }
+        }
+
         public static IEnumerable<EntityBase> ParseHashTags(string text, List<HashTag> hashtags)
         {
             foreach (var hashtag in hashtags.Distinct(h => h.Text))
@@ -92,6 +108,22 @@ namespace Chicken4WP.Common
                     };
                     yield return entity;
                 }
+            }
+        }
+
+        public static IEnumerable<EntityBase> ParseHashTags(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                yield break;
+            var matches = HashTagRegex.Matches(text);
+            foreach (Match match in matches)
+            {
+                var entity = new HashTag
+                {
+                    Index = match.Index,
+                    Text = match.Groups["hashtag"].Value
+                };
+                yield return entity;
             }
         }
 
