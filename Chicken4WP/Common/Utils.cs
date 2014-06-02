@@ -13,7 +13,7 @@ namespace Chicken4WP.Common
         private static Regex UserNameRegex = new Regex(@"([^A-Za-z0-9_]|^)@(?<name>(_*[A-Za-z0-9]{1,15}_*)+)(?![A-Za-z0-9_@])");
         private static Regex HashTagRegex = new Regex(@"#(?<hashtag>\w+)(?!(\w+))");
         private const string USERNAMEPATTERN = @"(?<name>{0})(?![A-Za-z0-9_@])";
-        private const string HASHTAGPATTERN = @"(?<hashtag>{0})(?!(\w+))";
+        private const string HASHTAGPATTERN = @"#(?<hashtag>{0})(?!(\w+))";
         private const string URLPATTERN = @"(?<text>{0})(?![A-Za-z0-9-_/])";
         #endregion
 
