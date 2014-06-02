@@ -255,6 +255,7 @@
                 </Grid.ColumnDefinitions>
                 <!--avatar-->
                 <Button Grid.Column="0" Style="{StaticResource ProfileImageSmall}"
+                        cal:Action.TargetWithoutContext="{Binding ElementName=Items, Path=DataContext}"
                         cal:Message.Attach="[Event Click] = [Action AvatarClick($datacontext, $eventArgs)]">
                     <Button.Template>
                         <ControlTemplate>
@@ -271,6 +272,7 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     <Button Grid.Row="0"
+                            cal:Action.TargetWithoutContext="{Binding ElementName=Items, Path=DataContext}"
                             cal:Message.Attach="[Event Click] = [Action ItemClick($datacontext, $eventArgs)]">
                         <Button.Template>
                             <ControlTemplate>
@@ -352,6 +354,7 @@
                 </Grid.ColumnDefinitions>
                 <!--avatar-->
                 <Button Grid.Column="0" Style="{StaticResource ProfileImageSmall}"
+                        cal:Action.TargetWithoutContext="{Binding ElementName=Items, Path=DataContext}"
                         cal:Message.Attach="[Event Click] = [Action AvatarClick($datacontext, $eventArgs)]">
                     <Button.Template>
                         <ControlTemplate>
@@ -368,6 +371,7 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     <Button Grid.Row="0"
+                            cal:Action.TargetWithoutContext="{Binding ElementName=Items, Path=DataContext}"
                             cal:Message.Attach="[Event Click] = [Action ItemClick($datacontext, $eventArgs)]">
                         <Button.Template>
                             <ControlTemplate>
@@ -468,6 +472,7 @@
                     </Grid.ColumnDefinitions>
                     <!--profile image-->
                     <Button Grid.Column="0" Style="{StaticResource ProfileImageBigger}"
+                            cal:Action.TargetWithoutContext="{Binding ElementName=Items, Path=DataContext}"
                             cal:Message.Attach="[Event Click] = [Action AvatarClick($datacontext, $eventArgs)]">
                         <Button.Template>
                             <ControlTemplate>
@@ -638,6 +643,7 @@
                     </Grid.ColumnDefinitions>
                     <!--profile image-->
                     <Button Grid.Column="0" Style="{StaticResource ProfileImageBigger}"
+                            cal:Action.TargetWithoutContext="{Binding ElementName=Items, Path=DataContext}"
                             cal:Message.Attach="[Event Click] = [Action AvatarClick($datacontext, $eventArgs)]">
                         <Button.Template>
                             <ControlTemplate>

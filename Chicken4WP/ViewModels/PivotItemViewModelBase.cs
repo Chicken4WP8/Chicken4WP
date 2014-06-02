@@ -38,7 +38,10 @@ namespace Chicken4WP.ViewModels
         public virtual void AvatarClick(object sender, RoutedEventArgs e)
         {
             var tweet = sender as Tweet;
-            storageService.UpdateTempUser(tweet.User);
+            if (tweet.RetweetStatus != null)
+                storageService.UpdateTempUser(tweet.RetweetStatus.User);
+            else
+                storageService.UpdateTempUser(tweet.User);
             navigationService.UriFor<ProfilePageViewModel>().Navigate();
         }
 
