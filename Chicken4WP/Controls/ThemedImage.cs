@@ -30,6 +30,13 @@ namespace Chicken4WP.Controls
             DefaultStyleKey = typeof(ThemedImage);
             this.imageCacheService = (Application.Current.Resources["bootstrapper"] as AppBootstrapper).Container
                 .GetInstance(typeof(ImageCacheService), null) as ImageCacheService;
+
+            this.Unloaded += ThemedImage_Unloaded;
+        }
+
+        void ThemedImage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            ApplySource();
         }
 
         #region public ImageSource Source
@@ -55,7 +62,8 @@ namespace Chicken4WP.Controls
 
         private void SourceUrlChanged()
         {
-            imageCacheService.SetImageStream(ImageUrl, SetImageSource);
+            if (!string.IsNullOrEmpty(ImageUrl))
+                imageCacheService.SetImageStream(ImageUrl, SetImageSource);
         }
 
         private void SetImageSource(byte[] data)
@@ -142,6 +150,7 @@ namespace Chicken4WP.Controls
             if (ElementImageBrush != null)
             {
                 ElementImageBrush.Source = Source;
+                ElementImageBrush.Stretch = Stretch.Fill;
             }
         }
     }

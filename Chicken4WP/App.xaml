@@ -205,6 +205,15 @@
             <Setter Property="TextTrimming" Value="WordEllipsis" />
         </Style>
 
+        <!--HyperLink Text without underline-->
+        <Style x:Name="HyperLinkTextNoUnderlineCenter" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource FontFamily}" />
+            <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeMedium}" />
+            <Setter Property="Foreground" Value="#F9F9F9" />
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="TextTrimming" Value="WordEllipsis" />
+        </Style>
+
         <!--hyper link button small-->
         <Style x:Name="HyperLinkButtonSmall" TargetType="HyperlinkButton">
             <Setter Property="Template">

@@ -81,7 +81,8 @@ namespace Chicken4WP.ViewModels.Profile
             User = storageService.GetTempUser();
             ProfileImageBiggerUrl = User.ProfileImageUrl.Replace("_normal", "_bigger");
             ProfileImageOriginalUrl = User.ProfileImageUrl.Replace("_normal", "");
-            ProfileBannerUrl = User.UserProfileBannerUrl + "/web";
+            if (!string.IsNullOrEmpty(User.UserProfileBannerUrl))
+                ProfileBannerUrl = User.UserProfileBannerUrl + "/web";
             GetFollowedByState();
         }
 

@@ -135,8 +135,23 @@
   <data name="ProfilePage_Following_Header" xml:space="preserve">
     <value>关注</value>
   </data>
+  <data name="ProfilePage_ProfileDetail_Favorites" xml:space="preserve">
+    <value>收藏</value>
+  </data>
+  <data name="ProfilePage_ProfileDetail_Followers" xml:space="preserve">
+    <value>关注者</value>
+  </data>
+  <data name="ProfilePage_ProfileDetail_Following" xml:space="preserve">
+    <value>关注</value>
+  </data>
   <data name="ProfilePage_ProfileDetail_Header" xml:space="preserve">
     <value>资料</value>
+  </data>
+  <data name="ProfilePage_ProfileDetail_Header1" xml:space="preserve">
+    <value>资料</value>
+  </data>
+  <data name="ProfilePage_ProfileDetail_Tweets" xml:space="preserve">
+    <value>推文</value>
   </data>
   <data name="ProfilePage_Tweets_Header" xml:space="preserve">
     <value>推文</value>

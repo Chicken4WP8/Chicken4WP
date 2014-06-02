@@ -135,8 +135,20 @@
   <data name="ProfilePage_Following_Header" xml:space="preserve">
     <value>Following</value>
   </data>
+  <data name="ProfilePage_ProfileDetail_Favorites" xml:space="preserve">
+    <value>FAVORITES</value>
+  </data>
+  <data name="ProfilePage_ProfileDetail_Followers" xml:space="preserve">
+    <value>FOLLOWERS</value>
+  </data>
+  <data name="ProfilePage_ProfileDetail_Following" xml:space="preserve">
+    <value>FOLLOWING</value>
+  </data>
   <data name="ProfilePage_ProfileDetail_Header" xml:space="preserve">
     <value>Profile</value>
+  </data>
+  <data name="ProfilePage_ProfileDetail_Tweets" xml:space="preserve">
+    <value>TWEETS</value>
   </data>
   <data name="ProfilePage_Tweets_Header" xml:space="preserve">
     <value>Tweets</value>

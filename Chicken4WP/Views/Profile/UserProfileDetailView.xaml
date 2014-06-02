@@ -28,18 +28,20 @@
                                 <Setter Property="Margin" Value="2" />
                             </Style>
                         </Grid.Resources>
+                        <Border Grid.Row="0" />
                         <!--profile banner-->
-                        <ctrls:ThemedImage Grid.Row="1" Opacity="0.6"
-                                           ImageUrl="{Binding ProfileBannerUrl}" />
+                        <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <ctrls:ThemedImage Opacity="0.6" ImageUrl="{Binding ProfileBannerUrl}" />
+                        </Grid>
                         <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="104" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
                             </Grid.RowDefinitions>
                             <!--Profile Image-->
                             <HyperlinkButton Grid.Row="0"
@@ -102,7 +104,61 @@
                                     </Rectangle.OpacityMask>
                                 </Rectangle>
                             </StackPanel>
-
+                            <!--Name-->
+                            <TextBlock Grid.Row="2" Text="{Binding User.Name}" />
+                            <!--Created Date-->
+                            <TextBlock Grid.Row="3" Text="{Binding User.CreatedDate}" />
+                            <!--Location-->
+                            <TextBlock Grid.Row="4" Text="{Binding User.Location}"
+                                       Visibility="{Binding User.Location,Converter={StaticResource StringToVisibilityConverter}}" />
+                            <!--Url-->
+                            <HyperlinkButton Grid.Row="5"
+                                             Visibility="{Binding Path=User.Url,Converter={StaticResource StringToVisibilityConverter}}"
+                                             Content="{Binding Path=User.Entities.UserProfileUrlEntities.Urls[0].TruncatedUrl}"
+                                             NavigateUri="{Binding Path=User.Entities.UserProfileUrlEntities.Urls[0].ExpandedUrl}"
+                                             TargetName="_blank" Style="{StaticResource HyperLinkNoUnderlineCenter}">
+                            </HyperlinkButton>
+                            <!--Tweets, Following, Followers, Favorites-->
+                            <!--please don't use fallbackvalue here-->
+                            <Border Grid.Row="6"
+                                    Style="{StaticResource RetweetCountBorder}"
+                                    BorderThickness="0,1,0,1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.Resources>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Margin" Value="2,0" />
+                                            <Setter Property="TextAlignment" Value="Left" />
+                                            <Setter Property="Foreground" Value="{StaticResource PhoneAccentBrush}" />
+                                        </Style>
+                                    </Grid.Resources>
+                                    <TextBlock Grid.Column="0">
+                                        <Run Text="{Binding User.StatusesCount}" />
+                                        <LineBreak />
+                                        <Run Text="{Binding Source={StaticResource LanguageHelper}, Path=[ProfilePage_ProfileDetail_Tweets]}" />
+                                    </TextBlock>
+                                    <TextBlock Grid.Column="1">
+                                        <Run Text="{Binding User.FollowingCount}" />
+                                        <LineBreak />
+                                        <Run Text="{Binding Source={StaticResource LanguageHelper}, Path=[ProfilePage_ProfileDetail_Following]}" />
+                                    </TextBlock>
+                                    <TextBlock Grid.Column="2">
+                                        <Run Text="{Binding User.FollowersCount}" />
+                                        <LineBreak />
+                                        <Run Text="{Binding Source={StaticResource LanguageHelper}, Path=[ProfilePage_ProfileDetail_Followers]}" />
+                                    </TextBlock>
+                                    <TextBlock Grid.Column="3">
+                                        <Run Text="{Binding User.FavoritesCount}" />
+                                        <LineBreak />
+                                        <Run Text="{Binding Source={StaticResource LanguageHelper}, Path=[ProfilePage_ProfileDetail_Favorites]}" />
+                                    </TextBlock>
+                                </Grid>
+                            </Border>
                         </Grid>
                         <!--description-->
                         <ctrls:AutoRichTextBox  Grid.Row="2" Margin="0,6,0,0"
