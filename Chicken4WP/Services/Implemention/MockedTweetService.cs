@@ -22,6 +22,19 @@ namespace Chicken4WP.Services.Implemention
             HandleWebRequest(url, callback);
         }
 
+        public void GetStatusDetail(string statusId, Action<Tweet> callback)
+        {
+            string url = "SampleData/tweet.json";
+            HandleWebRequest(url, callback);
+        }
+
+        public void GetFriendshipConnections(string userIdList, Action<Friendships> callback)
+        {
+            string url = "SampleData/friendships.json";
+            //string url = "SampleData/Rate_limit_exceeded.json";
+            HandleWebRequest(url, callback);
+        }
+
         public void TestProxySetting(Action<User> callback)
         {
             string url = "SampleData/myprofile.json";
@@ -30,23 +43,26 @@ namespace Chicken4WP.Services.Implemention
 
         #region private method
         private void HandleWebRequest<T>(string url, Action<T> callback)
+            where T : ModelBase, new()
         {
             var streamInfo = Application.GetResourceStream(new Uri(url, UriKind.Relative));
-            var result = default(T);
+            var data = new T();
             using (var reader = new StreamReader(streamInfo.Stream))
             {
                 string s = reader.ReadToEnd();
-                result = JsonConvert.DeserializeObject<T>(s, Const.JsonSettings);
+                try
+                {
+                    data = JsonConvert.DeserializeObject<T>(s, Const.JsonSettings);
+                }
+                catch (Exception exception)
+                {
+                    var error = JsonConvert.DeserializeObject<ModelBase>(s, Const.JsonSettings);
+                    data.HasError = true;
+                    data.Errors = error.Errors;
+                }
             }
-            Deployment.Current.Dispatcher.BeginInvoke(() => callback(result));
+            Deployment.Current.Dispatcher.BeginInvoke(() => callback(data));
         }
         #endregion
-
-
-        public void GetStatusDetail(string statusId, Action<Tweet> callback)
-        {
-            string url = "SampleData/tweet.json";
-            HandleWebRequest(url, callback);
-        }
     }
 }

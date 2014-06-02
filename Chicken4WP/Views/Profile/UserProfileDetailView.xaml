@@ -57,7 +57,8 @@
                             </HyperlinkButton>
                             <!--is private, is verified, etc-->
                             <StackPanel Grid.Row="1" Margin="0,4,0,0" Opacity="0.6"
-                                        Orientation="Horizontal" HorizontalAlignment="Center">
+                                        Orientation="Horizontal" HorizontalAlignment="Center"
+                                        Visibility="{Binding IsLoading, Converter={StaticResource InvertBooleanToVisibilityConverter},FallbackValue=Collapsed}">
                                 <StackPanel.Resources>
                                     <Style TargetType="Rectangle" BasedOn="{StaticResource RetweetRectangleSmall}">
                                         <Setter Property="Fill" Value="{StaticResource PhoneForegroundBrush}" />
@@ -93,13 +94,13 @@
                                         <ImageBrush ImageSource="/Images/dark/following.png" />
                                     </Rectangle.OpacityMask>
                                 </Rectangle>
-                                <!--followedby-->
-                                <!--<Rectangle
+                                <!--is followed by this user-->
+                                <Rectangle
                                             Visibility="{Binding Path=IsFollowedBy,Converter={StaticResource BooleanToVisibilityConverter}}">
                                     <Rectangle.OpacityMask>
                                         <ImageBrush ImageSource="/Images/dark/followedby.png" />
                                     </Rectangle.OpacityMask>
-                                </Rectangle>-->
+                                </Rectangle>
                             </StackPanel>
 
                         </Grid>

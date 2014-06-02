@@ -14,6 +14,10 @@ namespace Chicken4WP.Services.Interface
         void GetStatusDetail(string statusId, Action<Tweet> callback);
         #endregion
 
+        #region profile page
+        void GetFriendshipConnections(string userIdList, Action<Friendships> callback);
+        #endregion
+
         #region proxy setting
         void TestProxySetting(Action<User> callback);
         #endregion

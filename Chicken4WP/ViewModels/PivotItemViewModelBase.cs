@@ -3,8 +3,8 @@ using System.Globalization;
 using System.Windows;
 using Caliburn.Micro;
 using Chicken4WP.Models;
-using Chicken4WP.ViewModels.Status;
 using Chicken4WP.ViewModels.Profile;
+using Chicken4WP.ViewModels.Status;
 
 namespace Chicken4WP.ViewModels
 {

@@ -15,9 +15,11 @@ namespace Chicken4WP.Models
 
     public class ErrorMessage
     {
+        [JsonProperty("message")]
         public string Message { get; set; }
 
-        public string Code { get; set; }
+        [JsonProperty("code")]
+        public int Code { get; set; }
     }
 
     public class ModelBaseList<T> : ModelBase, IList<T>, ICollection<T>, IEnumerable<T>
