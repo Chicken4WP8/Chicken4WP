@@ -30,13 +30,6 @@ namespace Chicken4WP.Controls
             DefaultStyleKey = typeof(ThemedImage);
             this.imageCacheService = (Application.Current.Resources["bootstrapper"] as AppBootstrapper).Container
                 .GetInstance(typeof(ImageCacheService), null) as ImageCacheService;
-
-            this.Unloaded += ThemedImage_Unloaded;
-        }
-
-        void ThemedImage_Unloaded(object sender, RoutedEventArgs e)
-        {
-            ApplySource();
         }
 
         #region public ImageSource Source
@@ -57,7 +50,10 @@ namespace Chicken4WP.Controls
 
         private static void SourceUrlChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            (sender as ThemedImage).SourceUrlChanged();
+            var image = sender as ThemedImage;
+            if (e.OldValue != null)
+                image.ApplySource();
+            image.SourceUrlChanged();
         }
 
         private void SourceUrlChanged()
@@ -81,7 +77,7 @@ namespace Chicken4WP.Controls
                             memStream.Position = 0;
                             var bitmapImage = new BitmapImage();
                             bitmapImage.SetSource(memStream);
-                            this.Source = bitmapImage;
+                            ApplySource(bitmapImage);
                         }
                     }
                     #endregion
@@ -111,7 +107,7 @@ namespace Chicken4WP.Controls
                         using (var stream = new MemoryStream())
                         {
                             writeableBitmap.SaveJpeg(stream, writeableBitmap.PixelWidth, writeableBitmap.PixelHeight, 0, 100);
-                            this.Source = writeableBitmap;
+                            ApplySource(writeableBitmap);
                             byte[] bytes = stream.ToArray();
                             ImageCacheService.AddImageCache(ImageUrl, bytes);
                         }
@@ -130,12 +126,8 @@ namespace Chicken4WP.Controls
         }
 
         public static readonly DependencyProperty SourceProperty =
-            DependencyProperty.Register("Source", typeof(ImageSource), typeof(ThemedImage), new PropertyMetadata(SourceChanged));
+            DependencyProperty.Register("Source", typeof(ImageSource), typeof(ThemedImage), null);
 
-        private static void SourceChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
-        {
-            (sender as ThemedImage).ApplySource();
-        }
         #endregion
 
         public override void OnApplyTemplate()
@@ -145,11 +137,11 @@ namespace Chicken4WP.Controls
             ApplySource();
         }
 
-        private void ApplySource()
+        private void ApplySource(ImageSource image = null)
         {
             if (ElementImageBrush != null)
             {
-                ElementImageBrush.Source = Source;
+                ElementImageBrush.Source = image == null ? Source : image;
                 ElementImageBrush.Stretch = Stretch.Fill;
             }
         }

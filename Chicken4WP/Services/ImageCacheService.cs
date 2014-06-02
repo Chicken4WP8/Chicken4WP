@@ -3,33 +3,31 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
-using ImageTools.IO;
-using ImageTools.IO.Bmp;
-using ImageTools.IO.Gif;
-using ImageTools.IO.Png;
 
 namespace Chicken4WP.Services
 {
     public class ImageCacheService
     {
         private static readonly object locker = new object();
-        private const int MAX_CACHE_ITEM = 1000;
+        private const int MAX_CACHE_ITEM = 2000;
         private static Dictionary<string, byte[]> imageCacheDic = new Dictionary<string, byte[]>(MAX_CACHE_ITEM);
-
-        static ImageCacheService()
-        {
-            Decoders.AddDecoder<BmpDecoder>();
-            Decoders.AddDecoder<PngDecoder>();
-            Decoders.AddDecoder<GifDecoder>();
-        }
-
+        
         public void SetImageStream(string imageUrl, Action<byte[]> callback)
         {
             #region if cached
-            if (imageCacheDic.ContainsKey(imageUrl)
-                && imageCacheDic[imageUrl] != null)
+            List<byte> data = new List<byte>();
+            lock (locker)
             {
-                callback(imageCacheDic[imageUrl]);
+                if (imageCacheDic.ContainsKey(imageUrl) && imageCacheDic[imageUrl] != null)
+                {
+                    byte[] temp = new byte[imageCacheDic[imageUrl].Length];
+                    imageCacheDic[imageUrl].CopyTo(temp, 0);
+                    data.AddRange(temp);
+                }
+            }
+            if (data.Count != 0)
+            {
+                callback(data.ToArray());
                 return;
             }
             #endregion
@@ -50,7 +48,7 @@ namespace Chicken4WP.Services
 
         private void DownloadImage(WebResponse response, string url)
         {
-            if(imageCacheDic.ContainsKey(url) && imageCacheDic[url] != null)
+            if (imageCacheDic.ContainsKey(url) && imageCacheDic[url] != null)
                 return;
 
             using (Stream stream = response.GetResponseStream())
