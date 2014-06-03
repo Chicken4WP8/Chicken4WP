@@ -1,11 +1,11 @@
-﻿using Caliburn.Micro;
+﻿using System.Windows;
+using Caliburn.Micro;
 using Chicken4WP.Common;
 using Chicken4WP.Entities;
 using Chicken4WP.Models;
+using Chicken4WP.Services.Interface;
 using Chicken4WP.ViewModels.Home;
 using Microsoft.Phone.Controls;
-using System.Windows;
-using Chicken4WP.Services.Interface;
 
 namespace Chicken4WP.ViewModels.Setting.Proxies
 {
@@ -55,7 +55,7 @@ namespace Chicken4WP.ViewModels.Setting.Proxies
                 {
                     SaveProxySetting();
                     SaveCurrentUser(user);
-                    toastMessageService.HandleMessage("hello, " + user.ScreenName);
+                    toastMessageService.HandleMessage(languageHelper.GetString("Toast_Msg_HelloUser", user.ScreenName));
                     waitCursorService.IsVisible = false;
                     navigationService.UriFor<HomePageViewModel>().Navigate();
                 });

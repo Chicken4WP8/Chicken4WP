@@ -60,14 +60,18 @@ namespace Chicken4WP.Services.Implemention
         public void UpdateCurrentUser(User user)
         {
             var account = context.Settings.FirstOrDefault(s => s.Type == SettingType.CurrentUser && s.IsEnabled && s.IsInUsed);
-            account = new Setting
+            if (account == null)
             {
-                Type = SettingType.CurrentUser,
-                IsEnabled = true,
-                IsInUsed = true,
-                Name = user.Name,
-                Data = JsonConvert.SerializeObject(user),
-            };
+                account = new Setting
+               {
+                   Type = SettingType.CurrentUser,
+                   IsEnabled = true,
+                   IsInUsed = true,
+               };
+                context.Settings.InsertOnSubmit(account);
+            }
+            account.Name = user.Name;
+            account.Data = JsonConvert.SerializeObject(user);
             context.SubmitChanges();
         }
 
