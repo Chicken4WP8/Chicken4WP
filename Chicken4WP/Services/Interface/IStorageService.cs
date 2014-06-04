@@ -21,5 +21,8 @@ namespace Chicken4WP.Services.Interface
 
         User GetTempUser();
         void UpdateTempUser(User user);
+
+        byte[] GetCachedImage(string url);
+        void AddCachedImage(string url, byte[] data);
     }
 }

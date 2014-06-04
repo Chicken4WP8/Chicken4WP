@@ -109,7 +109,9 @@ namespace Chicken4WP.Controls
                             writeableBitmap.SaveJpeg(stream, writeableBitmap.PixelWidth, writeableBitmap.PixelHeight, 0, 100);
                             ApplySource(writeableBitmap);
                             byte[] bytes = stream.ToArray();
-                            ImageCacheService.AddImageCache(ImageUrl, bytes);
+                            var container = (Application.Current.Resources["bootstrapper"] as AppBootstrapper).Container;
+                            var imageCacheService = container.GetInstance(typeof(ImageCacheService), null) as ImageCacheService;
+                            imageCacheService.AddImageCache(ImageUrl, bytes);
                         }
                         gifImage.LoadingCompleted -= ExtendedImageLoadCompleted;
                     }

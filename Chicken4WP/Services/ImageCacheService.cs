@@ -1,33 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
+using Chicken4WP.Services.Interface;
 
 namespace Chicken4WP.Services
 {
     public class ImageCacheService
     {
-        private static readonly object locker = new object();
-        private const int MAX_CACHE_ITEM = 2000;
-        private static Dictionary<string, byte[]> imageCacheDic = new Dictionary<string, byte[]>(MAX_CACHE_ITEM);
-        
+        private readonly IStorageService storageService;
+
+        public ImageCacheService(IStorageService storageService)
+        {
+            this.storageService = storageService;
+        }
+
         public void SetImageStream(string imageUrl, Action<byte[]> callback)
         {
             #region if cached
-            List<byte> data = new List<byte>();
-            lock (locker)
+            var data = storageService.GetCachedImage(imageUrl);
+            if (data != null && data.Length != 0)
             {
-                if (imageCacheDic.ContainsKey(imageUrl) && imageCacheDic[imageUrl] != null)
-                {
-                    byte[] temp = new byte[imageCacheDic[imageUrl].Length];
-                    imageCacheDic[imageUrl].CopyTo(temp, 0);
-                    data.AddRange(temp);
-                }
-            }
-            if (data.Count != 0)
-            {
-                callback(data.ToArray());
+                callback(data);
                 return;
             }
             #endregion
@@ -48,9 +42,6 @@ namespace Chicken4WP.Services
 
         private void DownloadImage(WebResponse response, string url)
         {
-            if (imageCacheDic.ContainsKey(url) && imageCacheDic[url] != null)
-                return;
-
             using (Stream stream = response.GetResponseStream())
             {
                 var memoryStream = new MemoryStream();
@@ -61,12 +52,9 @@ namespace Chicken4WP.Services
             response.Close();
         }
 
-        public static void AddImageCache(string imageUrl, byte[] data)
+        public void AddImageCache(string imageUrl, byte[] data)
         {
-            lock (locker)
-            {
-                imageCacheDic[imageUrl] = data;
-            }
+            storageService.AddCachedImage(imageUrl, data);
         }
     }
 }

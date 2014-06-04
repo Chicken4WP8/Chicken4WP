@@ -10,6 +10,7 @@ namespace Chicken4WP.Services.Implemention
 {
     public class StorageService : IStorageService
     {
+        private const int MAX_CACHE_ITEM = 2000;
         private ChickenDataContext context;
 
         static StorageService()
@@ -167,6 +168,26 @@ namespace Chicken4WP.Services.Implemention
                 context.Temps.InsertOnSubmit(temp);
             }
             temp.Data = JsonConvert.SerializeObject(user);
+            context.SubmitChanges();
+        }
+
+        public byte[] GetCachedImage(string url)
+        {
+            var image = context.CachedImages.FirstOrDefault(c => c.ImageUrl == url);
+            if (image != null)
+                return image.Data;
+            return null;
+        }
+
+        public void AddCachedImage(string url, byte[] data)
+        {
+            var image = new CachedImage
+            {
+                Id = 0,
+                ImageUrl = url,
+                Data = data
+            };
+            context.CachedImages.InsertOnSubmit(image);
             context.SubmitChanges();
         }
     }

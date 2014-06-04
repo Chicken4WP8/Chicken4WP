@@ -144,6 +144,7 @@
     <Compile Include="Controls\TemplateSelector.cs" />
     <Compile Include="Controls\ThemedImage.cs" />
     <Compile Include="Controls\ToastPrompt.cs" />
+    <Compile Include="Entities\CachedImage.cs" />
     <Compile Include="Entities\ChickenDataContext.cs" />
     <Compile Include="Entities\Setting.cs" />
     <Compile Include="Entities\Temp.cs" />
