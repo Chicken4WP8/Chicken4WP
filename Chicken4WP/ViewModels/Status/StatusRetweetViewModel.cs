@@ -12,12 +12,12 @@ namespace Chicken4WP.ViewModels.Status
 
         protected override void RefreshData()
         {
-            throw new System.NotImplementedException();
+
         }
 
         protected override void LoadData()
         {
-            throw new System.NotImplementedException();
+
         }
     }
 }

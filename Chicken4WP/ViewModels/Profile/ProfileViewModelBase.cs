@@ -4,20 +4,20 @@ namespace Chicken4WP.ViewModels.Profile
 {
     public abstract class ProfileViewModelBase : PivotItemViewModelBase
     {
-        public ProfileViewModelBase()
-        {
-            this.user = storageService.GetTempUser();
-        }
-
         private User user;
         public User User
         {
             get { return user; }
+            set
+            {
+                user = value;
+                NotifyOfPropertyChange(() => User);
+            }
         }
 
-        protected override void OnInitialize()
+        protected override void Initialize()
         {
-            base.OnInitialize();
+            User = storageService.GetTempUser();
             if (CheckIsFollowingProtectedUser())
             {
                 ProfileInitialize();
@@ -40,9 +40,14 @@ namespace Chicken4WP.ViewModels.Profile
             }
         }
 
-        protected abstract void ProfileInitialize();
-        protected abstract void ProfileRefreshData();
-        protected abstract void ProfileLoadData();
+        protected virtual void ProfileInitialize()
+        { }
+
+        protected virtual void ProfileRefreshData()
+        { }
+
+        protected virtual void ProfileLoadData()
+        { }
 
         protected bool CheckIsFollowingProtectedUser()
         {

@@ -23,7 +23,7 @@ namespace Chicken4WP.ViewModels.Profile
         {
             if (Items == null)
                 Items = new ObservableCollection<Tweet>();
-            ProfileRefreshData();
+            RefreshData();
         }
 
         protected override void SetLanguage()

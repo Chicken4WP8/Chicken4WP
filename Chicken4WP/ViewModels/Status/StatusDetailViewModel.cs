@@ -16,13 +16,13 @@ namespace Chicken4WP.ViewModels.Status
             }
         }
 
-        protected override void OnInitialize()
+        protected override void Initialize()
         {
-            base.OnInitialize();
             if (Items == null)
                 Items = new ObservableCollection<Tweet>();
             var tweet = storageService.GetTempTweet();
             Items.Add(tweet);
+            base.LoadDataCompleted();
         }
 
         protected override void SetLanguage()

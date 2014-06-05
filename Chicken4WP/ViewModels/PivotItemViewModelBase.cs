@@ -30,6 +30,16 @@ namespace Chicken4WP.ViewModels
             }
         }
 
+        protected override void OnInitialize()
+        {
+            base.OnInitialize();
+            BeginLoadData();
+            Initialize();
+        }
+
+        protected virtual void Initialize()
+        { }
+
         public virtual void Handle(CultureInfo message)
         {
             SetLanguage();
@@ -82,7 +92,8 @@ namespace Chicken4WP.ViewModels
             stretch = Stretch.Top;
         }
 
-        protected abstract void SetLanguage();
+        protected virtual void SetLanguage()
+        { }
 
         protected virtual void BeginLoadData()
         {
@@ -90,9 +101,11 @@ namespace Chicken4WP.ViewModels
             progressService.Show();
         }
 
-        protected abstract void RefreshData();
+        protected virtual void RefreshData()
+        { }
 
-        protected abstract void LoadData();
+        protected virtual void LoadData()
+        { }
 
         protected virtual void LoadDataCompleted()
         {

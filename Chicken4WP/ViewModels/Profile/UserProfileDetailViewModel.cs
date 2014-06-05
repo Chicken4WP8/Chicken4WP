@@ -4,19 +4,8 @@ using Chicken4WP.Models;
 
 namespace Chicken4WP.ViewModels.Profile
 {
-    public class UserProfileDetailViewModel : PivotItemViewModelBase
+    public class UserProfileDetailViewModel : ProfileViewModelBase
     {
-        private User user;
-        public User User
-        {
-            get { return user; }
-            set
-            {
-                user = value;
-                NotifyOfPropertyChange(() => User);
-            }
-        }
-
         private string profileImageBiggerUrl;
         public string ProfileImageBiggerUrl
         {
@@ -64,10 +53,8 @@ namespace Chicken4WP.ViewModels.Profile
             }
         }
 
-        protected override void OnInitialize()
+        protected override void ProfileInitialize()
         {
-            base.OnInitialize();
-            BeginLoadData();
             RefreshData();
         }
 
@@ -76,9 +63,8 @@ namespace Chicken4WP.ViewModels.Profile
             DisplayName = languageHelper.GetString("ProfilePage_ProfileDetail_Header");
         }
 
-        protected override void RefreshData()
+        protected override void ProfileRefreshData()
         {
-            User = storageService.GetTempUser();
             ProfileImageBiggerUrl = User.ProfileImageUrl.Replace("_normal", "_bigger");
             ProfileImageOriginalUrl = User.ProfileImageUrl.Replace("_normal", "");
             if (!string.IsNullOrEmpty(User.UserProfileBannerUrl))

@@ -3,6 +3,9 @@ namespace Chicken4WP.ViewModels.Profile
 {
     public class UserFavoritesViewModel : PivotItemViewModelBase
     {
+        protected override void Initialize()
+        {           
+        }
 
         protected override void SetLanguage()
         {
