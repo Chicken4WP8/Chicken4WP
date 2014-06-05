@@ -462,13 +462,9 @@
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
-                    <RowDefinition />
                 </Grid.RowDefinitions>
-                <Border Grid.Row="0" BorderThickness="0,1,0,0"
-                        Style="{StaticResource RetweetCountBorder}"
-                        Visibility="{Binding InReplyToTweetId,Converter={StaticResource StringToVisibilityConverter},FallbackValue=Collapsed}" />
                 <!--profile summary-->
-                <Grid Grid.Row="1">
+                <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
@@ -565,7 +561,7 @@
                     </Grid>
                 </Grid>
                 <!--content-->
-                <Grid Grid.Row="2" Margin="4">
+                <Grid Grid.Row="1" Margin="4">
                     <!--text-->
                     <ctrls:AutoRichTextBox Style="{StaticResource TextContent}"
                                            HorizontalAlignment="Stretch" TextAlignment="Left"
@@ -573,13 +569,13 @@
                     </ctrls:AutoRichTextBox>
                 </Grid>
                 <!--via-->
-                <HyperlinkButton Grid.Row="3" Margin="4"
+                <HyperlinkButton Grid.Row="2" Margin="4"
                                  Style="{StaticResource HyperLinkButtonSmall}"
                                  Content="{Binding Path=Source}"
                                  HorizontalAlignment="Right" TargetName="_blank"
                                  NavigateUri="{Binding SourceUrl}" />
                 <!--retweet count, favorite count, location-->
-                <Border Grid.Row="4" BorderThickness="0,1,0,0"
+                <Border Grid.Row="3" BorderThickness="0,1,0,0"
                         Style="{StaticResource RetweetCountBorder}"
                         Visibility="{Binding NeedShowRetweetIcons,Converter={StaticResource BooleanToVisibilityConverter},FallbackValue=Collapsed}">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
@@ -615,7 +611,7 @@
                     </StackPanel>
                 </Border>
                 <!--media-->
-                <StackPanel  Grid.Row="5" Margin="4" HorizontalAlignment="Stretch"
+                <StackPanel  Grid.Row="4" Margin="4" HorizontalAlignment="Stretch"
                              Visibility="{Binding IncludeMedia,Converter={StaticResource BooleanToVisibilityConverter},FallbackValue=Collapsed}">
                     <HyperlinkButton TargetName="_blank" NavigateUri="{Binding Entities.Medias[0].MediaUrl}">
                         <HyperlinkButton.Template>

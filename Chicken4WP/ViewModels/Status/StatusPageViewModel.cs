@@ -8,6 +8,8 @@ namespace Chicken4WP.ViewModels.Status
         private StatusDetailViewModel detail;
         private StatusRetweetViewModel retweet;
 
+        public string Random { get; set; }
+
         public StatusPageViewModel(StatusDetailViewModel detail, StatusRetweetViewModel retweet)
         {
             this.detail = detail;

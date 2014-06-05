@@ -53,8 +53,13 @@ namespace Chicken4WP.ViewModels.Profile
             }
         }
 
-        protected override void ProfileInitialize()
+        /// <summary>
+        /// protected user's profile can be viewed,
+        /// but tweets not.
+        /// </summary>
+        protected override void Initialize()
         {
+            User = storageService.GetTempUser();
             RefreshData();
         }
 

@@ -10,6 +10,7 @@ namespace Chicken4WP.ViewModels
 {
     public abstract class PivotItemViewModelBase : ViewModelBase, IHandle<CultureInfo>
     {
+        public string Random;
         private Stretch stretch;
 
         protected PivotItemViewModelBase()
@@ -59,7 +60,9 @@ namespace Chicken4WP.ViewModels
         {
             var tweet = sender as Tweet;
             storageService.UpdateTempTweet(tweet);
-            navigationService.UriFor<StatusPageViewModel>().Navigate();
+            navigationService.UriFor<StatusPageViewModel>()
+                .WithParam(o => o.Random, DateTime.Now.Ticks.ToString("x"))
+                .Navigate();
         }
 
         public void StretchingCompleted(object sender, EventArgs e)
