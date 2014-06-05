@@ -185,6 +185,7 @@
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\PivotItemViewModelBase.cs" />
     <Compile Include="ViewModels\Profile\ProfilePageViewModel.cs" />
+    <Compile Include="ViewModels\Profile\ProfileViewModelBase.cs" />
     <Compile Include="ViewModels\Profile\UserFavoritesViewModel.cs" />
     <Compile Include="ViewModels\Profile\UserFollowersViewModel.cs" />
     <Compile Include="ViewModels\Profile\UserFollowingViewModel.cs" />
@@ -197,30 +198,6 @@
     <Compile Include="ViewModels\Status\StatusPageViewModel.cs" />
     <Compile Include="ViewModels\Status\StatusRetweetViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
-    <Compile Include="Views\Home\DMView.xaml.cs">
-      <DependentUpon>DMView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Home\HomePage.xaml.cs">
-      <DependentUpon>HomePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Home\IndexView.xaml.cs">
-      <DependentUpon>IndexView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Home\MentionView.xaml.cs">
-      <DependentUpon>MentionView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Setting\Proxies\BaseProxySettingPage.xaml.cs">
-      <DependentUpon>BaseProxySettingPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Setting\Proxies\TwipProxySettingPage.xaml.cs">
-      <DependentUpon>TwipProxySettingPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Setting\ProxySettingPage.xaml.cs">
-      <DependentUpon>ProxySettingPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Status\StatusDetailView.xaml.cs">
       <DependentUpon>StatusDetailView.xaml</DependentUpon>
     </Compile>
@@ -400,6 +377,7 @@
     <Content Include="SampleData\tweet.json" />
     <Content Include="SampleData\friendships.json" />
     <Content Include="SampleData\Rate_limit_exceeded.json" />
+    <Content Include="SampleData\user_timeline.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ApplicationIcon.png">

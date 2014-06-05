@@ -35,6 +35,12 @@ namespace Chicken4WP.Services.Implemention
             HandleWebRequest(url, callback);
         }
 
+        public void GetUserTweets(User user, Option option, Action<TweetList> callback)
+        {
+            string url = "SampleData/user_timeline.json";
+            HandleWebRequest(url, callback);
+        }
+
         public void TestProxySetting(Action<User> callback)
         {
             string url = "SampleData/myprofile.json";

@@ -59,6 +59,21 @@ namespace Chicken4WP.Services.Implemention
             option.Add(Const.USER_ID, userIdList);
             Execute<Friendships>(request, option, callback);
         }
+
+        public void GetUserTweets(User user, Option option, Action<TweetList> callback)
+        {
+            var request = new RestRequest();
+            request.Resource = Const.USER_TIMELINE;
+            if (!string.IsNullOrEmpty(user.Id))
+            {
+                option.Add(Const.USER_ID, user.Id);
+            }
+            else if (!string.IsNullOrEmpty(user.ScreenName))
+            {
+                option.Add(Const.USER_SCREEN_NAME, user.ScreenName);
+            }
+            Execute<TweetList>(request, option, callback);
+        }
         #endregion
 
         #region proxy setting
